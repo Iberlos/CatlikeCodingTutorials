@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Physics/ProBuilderTestScene_Slopes.unity
+- path: Assets/OrbitalCamera/ProBuilderTestScene_CameraTestGrounds.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
