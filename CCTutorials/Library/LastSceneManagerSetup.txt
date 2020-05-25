@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/SlidingASphere/SlidingASphere 1.unity
+- path: Assets/Physics/ProBuilderTestScene_Slopes.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
