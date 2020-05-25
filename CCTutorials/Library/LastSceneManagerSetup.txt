@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/CustomGravity/ProbuilderTestLevel_OriginCenteredPlanet.unity
+- path: Assets/ComplexGravity/ProBuilderTestScene_GravityPlanes.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

@@ -62,10 +62,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CustomGravity\Scripts\CustomGravity.cs" />
-    <Compile Include="Assets\CustomGravity\Scripts\MovingSphere.cs" />
-    <Compile Include="Assets\CustomGravity\Scripts\OrbitCamera.cs" />
-    <Compile Include="Assets\CustomGravity\Scripts\RigidBody_CustomGravityExtension.cs" />
+    <Compile Include="Assets\ComplexGravity\Scripts\CustomGravity.cs" />
+    <Compile Include="Assets\ComplexGravity\Scripts\GravitySource.cs" />
+    <Compile Include="Assets\ComplexGravity\Scripts\GravitySources\GravityBox.cs" />
+    <Compile Include="Assets\ComplexGravity\Scripts\GravitySources\GravityPlane.cs" />
+    <Compile Include="Assets\ComplexGravity\Scripts\GravitySources\GravitySphere.cs" />
+    <Compile Include="Assets\ComplexGravity\Scripts\MovingSphere.cs" />
+    <Compile Include="Assets\ComplexGravity\Scripts\OrbitCamera.cs" />
+    <Compile Include="Assets\ComplexGravity\Scripts\RigidBody_ComplexGravityExtension.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Documents/Projects_Unity/CatlikeCodingTutorials/CCTutorials/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
