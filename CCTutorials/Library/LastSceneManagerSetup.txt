@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/ComplexGravity/ProBuilderTestScene_GravityPlanes.unity
+- path: Assets/MovingTheGround/ProbuilderTestScene_MovingPlatforms.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
