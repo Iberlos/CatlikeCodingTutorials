@@ -64,6 +64,9 @@
   <ItemGroup>
     <Compile Include="Assets\MovingTheGround\Scripts\CustomGravity.cs" />
     <Compile Include="Assets\MovingTheGround\Scripts\GravitySource.cs" />
+    <Compile Include="Assets\MovingTheGround\Scripts\GravitySources\GravityBox.cs" />
+    <Compile Include="Assets\MovingTheGround\Scripts\GravitySources\GravityPlane.cs" />
+    <Compile Include="Assets\MovingTheGround\Scripts\GravitySources\GravitySphere.cs" />
     <Compile Include="Assets\MovingTheGround\Scripts\MovingPlatform.cs" />
     <Compile Include="Assets\MovingTheGround\Scripts\MovingSphere.cs" />
     <Compile Include="Assets\MovingTheGround\Scripts\OrbitCamera.cs" />
