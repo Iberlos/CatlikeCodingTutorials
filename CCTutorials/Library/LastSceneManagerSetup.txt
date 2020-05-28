@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/MakeAGraph/MakeAGraph.unity
+- path: Assets/MathematicalSufaces/MathematicalSufaces.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
