@@ -7,7 +7,7 @@ public class Game : PersistableObject
     [SerializeField]
     private PersistentStorage storage;
     [SerializeField]
-    private PersistableObject prefab;
+    private ShapeFactory shapeFactory;
 
     [SerializeField]
     private KeyCode createKey = KeyCode.C;
@@ -18,12 +18,13 @@ public class Game : PersistableObject
     [SerializeField]
     private KeyCode loadKey = KeyCode.L;
 
-    private List<PersistableObject> objects;
+    private List<Shape> shapes;
+    private const int saveVersion = 1;
 
     // Start is called before the first frame update
     void Awake()
     {
-        objects = new List<PersistableObject>();
+        shapes = new List<Shape>();
     }
 
     // Update is called once per frame
@@ -31,7 +32,7 @@ public class Game : PersistableObject
     {
         if(Input.GetKeyDown(createKey))
         {
-            CreateObject();
+            CreateShape();
         }
         else if(Input.GetKey(newGameKey))
         {
@@ -39,7 +40,7 @@ public class Game : PersistableObject
         }
         else if (Input.GetKeyDown(saveKey))
         {
-            storage.Save(this);
+            storage.Save(this, saveVersion);
         }
         else if (Input.GetKeyDown(loadKey))
         {
@@ -47,43 +48,63 @@ public class Game : PersistableObject
         }
     }
 
-    void CreateObject()
+    void CreateShape()
     {
-        PersistableObject o = Instantiate(prefab);
-        Transform t = o.transform;
+        Shape instance = shapeFactory.GetRandom();
+        Transform t = instance.transform;
         t.localPosition = Random.insideUnitSphere * 5f;
         t.localRotation = Random.rotation;
         t.localScale = Vector3.one * Random.Range(0.1f, 1f);
-        objects.Add(o);
+        instance.SetColor(Random.ColorHSV
+            (//you can name parameters being passed in!
+            hueMin:0f, hueMax:1f, 
+            saturationMin:0.5f, saturationMax:1f,
+            valueMin:0.25f, valueMax:1f,
+            alphaMin:1f, alphaMax:1f
+            )
+        );
+        shapes.Add(instance);
     }
 
     void BeginNewGame()
     {
-        foreach(PersistableObject obj in objects)
+        foreach(PersistableObject obj in shapes)
         {
             Destroy(obj.gameObject);
         }
-        objects.Clear();
+        shapes.Clear();
     }
 
     public override void Save(GameDataWriter writer)
     {
-        writer.Write(objects.Count);
-        foreach(PersistableObject obj in objects)
+        writer.Write(shapes.Count);
+        foreach(Shape shape in shapes)
         {
-            obj.Save(writer);
+            writer.Write(shape.ShapeId);
+            writer.Write(shape.MaterialId);
+            shape.Save(writer);
         }
     }
 
     public override void Load(GameDataReader reader)
     {
         BeginNewGame();
-        int count = reader.ReadInt();
+        int version = reader.Version;
+        //version support
+        if(version > saveVersion)
+        {
+            Debug.LogError("Unsupported future save version " + version);
+            return;
+        }
+        int count = version <= 0 ? -version : reader.ReadInt();
+        //load objects
         for(int i = 0; i< count; i++)
         {
-            PersistableObject o = Instantiate(prefab);
-            o.Load(reader);
-            objects.Add(o);
+            int shapeId = version > 0 ? reader.ReadInt() : 0;
+            int materialId = version > 0 ? reader.ReadInt() : 0;
+            Shape instance = shapeFactory.Get(shapeId, materialId);
+            instance.Load(reader);
+            shapes.Add(instance);
         }
     }
 }

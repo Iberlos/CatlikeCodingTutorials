@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Object Management/Persisting Objects.unity
+- path: Assets/Object Management/Object Variety.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

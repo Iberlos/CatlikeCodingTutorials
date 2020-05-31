@@ -36,4 +36,12 @@ public class GameDataWriter
         this.Write(value.y);
         this.Write(value.z);
     }
+
+    public void Write(Color value)
+    {
+        this.Write(value.r);
+        this.Write(value.g);
+        this.Write(value.b);
+        this.Write(value.a);
+    }
 }
