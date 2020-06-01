@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Object Management/Object Variety.unity
+- path: Assets/Object Management/Reusing Objects.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

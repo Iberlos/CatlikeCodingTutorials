@@ -12,14 +12,20 @@ public class Game : PersistableObject
     [SerializeField]
     private KeyCode createKey = KeyCode.C;
     [SerializeField]
+    private KeyCode destroyKey = KeyCode.X;
+    [SerializeField]
     private KeyCode newGameKey = KeyCode.N;
     [SerializeField]
     private KeyCode saveKey = KeyCode.S;
     [SerializeField]
     private KeyCode loadKey = KeyCode.L;
 
+    public float CreationSpeed { get; set; }
+    public float DestructionSpeed { get; set; }
+
     private List<Shape> shapes;
     private const int saveVersion = 1;
+    private float creationProgress, destructionProgress;
 
     // Start is called before the first frame update
     void Awake()
@@ -34,6 +40,10 @@ public class Game : PersistableObject
         {
             CreateShape();
         }
+        else if (Input.GetKeyDown(destroyKey))
+        {
+            DestroyShape();
+        }
         else if(Input.GetKey(newGameKey))
         {
             BeginNewGame();
@@ -45,6 +55,20 @@ public class Game : PersistableObject
         else if (Input.GetKeyDown(loadKey))
         {
             storage.Load(this);
+        }
+
+        creationProgress += Time.deltaTime * CreationSpeed;
+        while (creationProgress >= 1f)
+        {
+            creationProgress -= 1;
+            CreateShape();
+        }
+
+        destructionProgress += Time.deltaTime * DestructionSpeed;
+        while (destructionProgress >= 1f)
+        {
+            destructionProgress -= 1;
+            DestroyShape();
         }
     }
 
@@ -66,11 +90,23 @@ public class Game : PersistableObject
         shapes.Add(instance);
     }
 
+    void DestroyShape()
+    {
+        if(shapes.Count > 0)
+        {
+            int index = Random.Range(0, shapes.Count);
+            shapeFactory.Reclaim(shapes[index]);
+            int lastIndex = shapes.Count - 1;
+            shapes[index] = shapes[lastIndex];
+            shapes.RemoveAt(lastIndex);
+        }
+    }
+
     void BeginNewGame()
     {
-        foreach(PersistableObject obj in shapes)
+        foreach(Shape shape in shapes)
         {
-            Destroy(obj.gameObject);
+            shapeFactory.Reclaim(shape);
         }
         shapes.Clear();
     }
