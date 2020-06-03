@@ -22,15 +22,30 @@ public class Game : PersistableObject
     private KeyCode loadKey = KeyCode.L;
 
     [SerializeField]
-    private int LevelCount;
+    private int levelCount;
 
     public float CreationSpeed { get; set; }
     public float DestructionSpeed { get; set; }
+    public SpawnZone SpawnZoneOfLevel { get; set; }
+    public static Game Instance { get; private set; }
 
     private List<Shape> shapes;
     private const int saveVersion = 2;
     private float creationProgress, destructionProgress;
     private int loadedLevelBuildIndex;
+
+    private void OnEnable()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if(Instance != this)
+        {
+            Debug.LogError("More than one Game scripts were instantiated! The extra has been destroyed.");
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -79,7 +94,7 @@ public class Game : PersistableObject
         }
         else 
         {
-            for(int i = 1; i <= LevelCount; i++)
+            for(int i = 1; i <= levelCount; i++)
             {
                 if(Input.GetKeyDown(KeyCode.Alpha0 + i))
                 {
@@ -109,7 +124,7 @@ public class Game : PersistableObject
     {
         Shape instance = shapeFactory.GetRandom();
         Transform t = instance.transform;
-        t.localPosition = Random.insideUnitSphere * 5f;
+        t.localPosition = SpawnZoneOfLevel.SpawnPoint;
         t.localRotation = Random.rotation;
         t.localScale = Vector3.one * Random.Range(0.1f, 1f);
         instance.SetColor(Random.ColorHSV

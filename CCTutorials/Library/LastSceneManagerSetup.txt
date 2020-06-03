@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Object Management/Loading Levels.unity
+- path: Assets/Object Management/LevelVariety.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
