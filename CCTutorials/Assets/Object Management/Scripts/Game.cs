@@ -9,7 +9,7 @@ public class Game : PersistableObject
     [SerializeField]
     private PersistentStorage storage;
     [SerializeField]
-    private ShapeFactory shapeFactory;
+    ShapeFactory[] shapeFactories;
 
     [SerializeField]
     private Slider creationSpeedSlider;
@@ -34,12 +34,14 @@ public class Game : PersistableObject
     [SerializeField]
     private bool reseedOnLoad;
 
+
+
     public float CreationSpeed { get; set; }
     public float DestructionSpeed { get; set; }
 
     private Random.State mainRandomState;
     private List<Shape> shapes;
-    private const int saveVersion = 4;
+    private const int saveVersion = 5;
     private float creationProgress, destructionProgress;
     private int loadedLevelBuildIndex;
 
@@ -64,6 +66,17 @@ public class Game : PersistableObject
         }
         BeginNewGame();
         StartCoroutine(LoadLevel(1));
+    }
+
+    private void OnEnable()
+    {
+        if(shapeFactories[0].FactoryId != 0)//if the ids were not initialized yet
+        {
+            for (int i = 0; i < shapeFactories.Length; i++)
+            {
+                shapeFactories[i].FactoryId = i;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -128,9 +141,7 @@ public class Game : PersistableObject
 
     void CreateShape()
     {
-        Shape instance = shapeFactory.GetRandom();
-        GameLevel.Current.ConfigureSpawn(instance);
-        shapes.Add(instance);
+        shapes.Add(GameLevel.Current.SpawnShape());
         //update counter **ADED**
         activeShapeCounterLable.text = "Active Shapes = " + shapes.Count;
     }
@@ -140,7 +151,7 @@ public class Game : PersistableObject
         if(shapes.Count > 0)
         {
             int index = Random.Range(0, shapes.Count);
-            shapeFactory.Reclaim(shapes[index]);
+            shapes[index].Recycle();
             int lastIndex = shapes.Count - 1;
             shapes[index] = shapes[lastIndex];
             shapes.RemoveAt(lastIndex);
@@ -161,7 +172,7 @@ public class Game : PersistableObject
         destructionSpeedSlider.value = 0;
         foreach(Shape shape in shapes)
         {
-            shapeFactory.Reclaim(shape);
+            shape.Recycle();
         }
         shapes.Clear();
         //update counter **ADED**
@@ -180,6 +191,7 @@ public class Game : PersistableObject
         GameLevel.Current.Save(writer);
         foreach(Shape shape in shapes)
         {
+            writer.Write(shape.OriginFactory.FactoryId);
             writer.Write(shape.ShapeId);
             writer.Write(shape.MaterialId);
             shape.Save(writer);
@@ -222,9 +234,10 @@ public class Game : PersistableObject
         //load objects
         for(int i = 0; i< count; i++)
         {
+            int factoryId = version >= 5 ? reader.ReadInt() : 0;
             int shapeId = version > 0 ? reader.ReadInt() : 0;
             int materialId = version > 0 ? reader.ReadInt() : 0;
-            Shape instance = shapeFactory.Get(shapeId, materialId);
+            Shape instance = shapeFactories[factoryId].Get(shapeId, materialId);
             instance.Load(reader);
             shapes.Add(instance);
         }

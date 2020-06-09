@@ -9,9 +9,9 @@ public class GameLevel : PersistableObject
     [SerializeField]
     PersistableObject[] persistableObjects;
 
-    public void ConfigureSpawn(Shape shape)
+    public Shape SpawnShape()
     {
-        spawnZone.ConfigureSpawn(shape);
+        return spawnZone.SpawnShape();
     }
     public static GameLevel Current { get; private set; }
 
