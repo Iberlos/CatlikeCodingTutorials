@@ -553,6 +553,7 @@ MonoBehaviour:
   shapeFactories:
   - {fileID: 11400000, guid: b6008da2639b23447b15a0e3eb7eea55, type: 2}
   - {fileID: 11400000, guid: 7cedfe604bf4b0f4f9b7d430c4f54b59, type: 2}
+  - {fileID: 11400000, guid: 7f4f433c69448e0478596bf9590fbb42, type: 2}
   creationSpeedSlider: {fileID: 1127192631}
   destructionSpeedSlider: {fileID: 2029998388}
   activeShapeCounterLable: {fileID: 1848834723}
