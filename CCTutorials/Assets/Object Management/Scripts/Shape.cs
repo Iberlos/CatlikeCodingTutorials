@@ -91,7 +91,7 @@ public class Shape : PersistableObject
     {
         base.Save(writer);
         writer.Write(colors.Length);
-        for(int i = 0; i < colors.Length; i++)
+        for (int i = 0; i < colors.Length; i++)
         {
             writer.Write(colors[i]);
         }
@@ -102,7 +102,7 @@ public class Shape : PersistableObject
     public override void Load(GameDataReader reader)
     {
         base.Load(reader);
-        if(reader.Version >= 5)
+        if (reader.Version >= 5)
         {
             LoadColors(reader);
         }
@@ -110,8 +110,8 @@ public class Shape : PersistableObject
         {
             SetColor(reader.Version > 0 ? reader.ReadColor() : Color.white);
         }
-        SetColor(reader.Version > 0 ? reader.ReadColor() : Color.white);
-        AngularVelocity = reader.Version >= 4 ? reader.ReadVector3() : Vector3.zero;
+        AngularVelocity =
+            reader.Version >= 4 ? reader.ReadVector3() : Vector3.zero;
         Velocity = reader.Version >= 4 ? reader.ReadVector3() : Vector3.zero;
     }
 

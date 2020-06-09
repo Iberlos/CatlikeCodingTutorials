@@ -232,7 +232,7 @@ public class Game : PersistableObject
             GameLevel.Current.Load(reader);
         }
         //load objects
-        for(int i = 0; i< count; i++)
+        for (int i = 0; i < count; i++)
         {
             int factoryId = version >= 5 ? reader.ReadInt() : 0;
             int shapeId = version > 0 ? reader.ReadInt() : 0;
