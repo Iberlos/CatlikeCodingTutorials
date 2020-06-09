@@ -203,6 +203,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48eb9bfd587ab8e49b58e6cc684dc727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnConfig:
+    movementDirection: 0
+    spawnSpeed:
+      min: -2
+      max: 2
+    angularSpeed:
+      min: 0
+      max: 1
+    scale:
+      min: 0
+      max: 1
+    color:
+      hue:
+        min: 0
+        max: 1
+      saturation:
+        min: 0
+        max: 1
+      value:
+        min: 0
+        max: 1
   surfaceOnly: 0
 --- !u!4 &413535534
 Transform:
@@ -247,6 +268,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0accc4dd8fd284589d29d26e3f30dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnConfig:
+    movementDirection: 0
+    spawnSpeed:
+      min: -2
+      max: 2
+    angularSpeed:
+      min: 0
+      max: 1
+    scale:
+      min: 0
+      max: 1
+    color:
+      hue:
+        min: 0
+        max: 1
+      saturation:
+        min: 0
+        max: 1
+      value:
+        min: 0
+        max: 1
+  overrideConfig: 0
   spawnZones:
   - {fileID: 1396861419}
   - {fileID: 1596139239}
@@ -296,6 +339,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48eb9bfd587ab8e49b58e6cc684dc727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnConfig:
+    movementDirection: 0
+    spawnSpeed:
+      min: -2
+      max: 2
+    angularSpeed:
+      min: 0
+      max: 1
+    scale:
+      min: 0
+      max: 1
+    color:
+      hue:
+        min: 0
+        max: 1
+      saturation:
+        min: 0
+        max: 1
+      value:
+        min: 0
+        max: 1
   surfaceOnly: 0
 --- !u!4 &1055829948
 Transform:
@@ -340,6 +404,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc80fec32deaad4d8d52287c8a8acff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnConfig:
+    movementDirection: 0
+    spawnSpeed:
+      min: -2
+      max: 2
+    angularSpeed:
+      min: 0
+      max: 1
+    scale:
+      min: 0
+      max: 1
+    color:
+      hue:
+        min: 0
+        max: 1
+      saturation:
+        min: 0
+        max: 1
+      value:
+        min: 0
+        max: 1
   surfaceOnly: 0
 --- !u!4 &1210786847
 Transform:
@@ -384,6 +469,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48eb9bfd587ab8e49b58e6cc684dc727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnConfig:
+    movementDirection: 0
+    spawnSpeed:
+      min: -2
+      max: 2
+    angularSpeed:
+      min: 0
+      max: 1
+    scale:
+      min: 0
+      max: 1
+    color:
+      hue:
+        min: 0
+        max: 1
+      saturation:
+        min: 0
+        max: 1
+      value:
+        min: 0
+        max: 1
   surfaceOnly: 0
 --- !u!4 &1396861420
 Transform:
@@ -428,6 +534,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48eb9bfd587ab8e49b58e6cc684dc727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnConfig:
+    movementDirection: 0
+    spawnSpeed:
+      min: -2
+      max: 2
+    angularSpeed:
+      min: 0
+      max: 1
+    scale:
+      min: 0
+      max: 1
+    color:
+      hue:
+        min: 0
+        max: 1
+      saturation:
+        min: 0
+        max: 1
+      value:
+        min: 0
+        max: 1
   surfaceOnly: 0
 --- !u!4 &1596139240
 Transform:
@@ -528,13 +655,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1664322086}
-  m_LocalRotation: {x: 0.9658891, y: 0.0022585746, z: 0.25880915, w: -0.008429117}
+  m_LocalRotation: {x: 0.96587974, y: 0.0025295787, z: 0.25880665, w: -0.009440517}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 181, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 181.12, y: -30, z: 0}
 --- !u!1 &2000435547
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,6 +691,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0accc4dd8fd284589d29d26e3f30dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnConfig:
+    movementDirection: 0
+    spawnSpeed:
+      min: -2
+      max: 2
+    angularSpeed:
+      min: 0
+      max: 1
+    scale:
+      min: 0
+      max: 1
+    color:
+      hue:
+        min: 0
+        max: 1
+      saturation:
+        min: 0
+        max: 1
+      value:
+        min: 0
+        max: 1
+  overrideConfig: 0
   spawnZones:
   - {fileID: 1055829947}
   - {fileID: 1210786846}

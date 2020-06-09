@@ -15,6 +15,8 @@ public class Game : PersistableObject
     private Slider creationSpeedSlider;
     [SerializeField]
     private Slider destructionSpeedSlider;
+    [SerializeField]
+    private Text activeShapeCounterLable;
 
     [SerializeField]
     private KeyCode createKey = KeyCode.C;
@@ -37,7 +39,7 @@ public class Game : PersistableObject
 
     private Random.State mainRandomState;
     private List<Shape> shapes;
-    private const int saveVersion = 3;
+    private const int saveVersion = 4;
     private float creationProgress, destructionProgress;
     private int loadedLevelBuildIndex;
 
@@ -104,6 +106,11 @@ public class Game : PersistableObject
 
     private void FixedUpdate()
     {
+        foreach(Shape shape in shapes)
+        {
+            shape.GameUpdate();
+        }
+
         creationProgress += Time.fixedDeltaTime * CreationSpeed;
         while (creationProgress >= 1f)
         {
@@ -122,19 +129,10 @@ public class Game : PersistableObject
     void CreateShape()
     {
         Shape instance = shapeFactory.GetRandom();
-        Transform t = instance.transform;
-        t.localPosition = GameLevel.Current.SpawnPoint;
-        t.localRotation = Random.rotation;
-        t.localScale = Vector3.one * Random.Range(0.1f, 1f);
-        instance.SetColor(Random.ColorHSV
-            (//you can name parameters being passed in!
-            hueMin:0f, hueMax:1f, 
-            saturationMin:0.5f, saturationMax:1f,
-            valueMin:0.25f, valueMax:1f,
-            alphaMin:1f, alphaMax:1f
-            )
-        );
+        GameLevel.Current.ConfigureSpawn(instance);
         shapes.Add(instance);
+        //update counter **ADED**
+        activeShapeCounterLable.text = "Active Shapes = " + shapes.Count;
     }
 
     void DestroyShape()
@@ -146,6 +144,8 @@ public class Game : PersistableObject
             int lastIndex = shapes.Count - 1;
             shapes[index] = shapes[lastIndex];
             shapes.RemoveAt(lastIndex);
+            //update counter **ADED**
+            activeShapeCounterLable.text = "Active Shapes = " + shapes.Count;
         }
     }
 
@@ -164,6 +164,8 @@ public class Game : PersistableObject
             shapeFactory.Reclaim(shape);
         }
         shapes.Clear();
+        //update counter **ADED**
+        activeShapeCounterLable.text = "Active Shapes = " + shapes.Count;
     }
 
     public override void Save(GameDataWriter writer)
@@ -226,6 +228,8 @@ public class Game : PersistableObject
             instance.Load(reader);
             shapes.Add(instance);
         }
+        //update counter **ADED**
+        activeShapeCounterLable.text = "Active Shapes = " + shapes.Count;
     }
 
     IEnumerator LoadLevel(int levelBuildIndex)
