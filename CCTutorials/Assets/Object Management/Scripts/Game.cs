@@ -41,7 +41,7 @@ public class Game : PersistableObject
 
     private Random.State mainRandomState;
     private List<Shape> shapes;
-    private const int saveVersion = 5;
+    private const int saveVersion = 6;
     private float creationProgress, destructionProgress;
     private int loadedLevelBuildIndex;
 

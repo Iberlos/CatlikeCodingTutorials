@@ -7,16 +7,14 @@ public class Shape : PersistableObject
     [SerializeField]
     MeshRenderer[] meshRenderers;
     public int MaterialId { get; private set; }
-    public Vector3 AngularVelocity { get; set; }
-    public Vector3 Velocity { get; set; }
     public int ShapeId
-        {
+    {
         get { return shapeId; }
         set {
-            if(shapeId == int.MinValue && value != int.MinValue)
+            if (shapeId == int.MinValue && value != int.MinValue)
                 shapeId = value;
-            }
         }
+    }
     public int ColorCount
     {
         get
@@ -38,11 +36,14 @@ public class Shape : PersistableObject
                 Debug.LogError("Not allowed to change origin factory.");
         }
     }
+    public float Age { get; private set;}
+
     ShapeFactory originFactory;
     private int shapeId = int.MinValue;
     Color[] colors;
     static int colorPropertyId = Shader.PropertyToID("_Color");
     static MaterialPropertyBlock sharedPropertyBlock;
+    List<ShapeBehavior> behaviorList = new List<ShapeBehavior>();
 
     public void SetMaterial(Material material, int materialId)
     {
@@ -76,6 +77,13 @@ public class Shape : PersistableObject
         meshRenderers[index].SetPropertyBlock(sharedPropertyBlock);
     }
 
+    public T AddBehavior<T> () where T:ShapeBehavior, new()
+    {
+        T behavior = ShapeBehaviorPool<T>.Get();
+        behaviorList.Add(behavior);
+        return behavior;
+    }
+
     private void Awake()
     {
         colors = new Color[meshRenderers.Length];
@@ -83,8 +91,11 @@ public class Shape : PersistableObject
 
     public void GameUpdate()
     {
-        transform.Rotate(AngularVelocity * Time.fixedDeltaTime);
-        transform.localPosition += Velocity * Time.fixedDeltaTime;
+        Age += Time.fixedDeltaTime;
+        foreach(ShapeBehavior behavior in behaviorList)
+        {
+            behavior.GameUpdate(this);
+        }
     }
 
     public override void Save(GameDataWriter writer)
@@ -95,8 +106,13 @@ public class Shape : PersistableObject
         {
             writer.Write(colors[i]);
         }
-        writer.Write(AngularVelocity);
-        writer.Write(Velocity);
+        writer.Write(Age);
+        writer.Write(behaviorList.Count);
+        for (int i = 0; i < behaviorList.Count; i++)
+        {
+            writer.Write((int)behaviorList[i].BehaviorType);
+            behaviorList[i].Save(writer);
+        }
     }
 
     public override void Load(GameDataReader reader)
@@ -110,9 +126,24 @@ public class Shape : PersistableObject
         {
             SetColor(reader.Version > 0 ? reader.ReadColor() : Color.white);
         }
-        AngularVelocity =
-            reader.Version >= 4 ? reader.ReadVector3() : Vector3.zero;
-        Velocity = reader.Version >= 4 ? reader.ReadVector3() : Vector3.zero;
+        if (reader.Version >= 6)
+        {
+            Age = reader.ReadFloat();
+            int behaviorCount = reader.ReadInt();
+            for (int i = 0; i < behaviorCount; i++)
+            {
+                ShapeBehavior behavior =
+                    ((ShapeBehaviorType)reader.ReadInt()).GetInstance();
+                behaviorList.Add(behavior);
+                behavior.Load(reader);
+            }
+        }
+        else if (reader.Version >= 4)
+        {
+            AddBehavior<RotationShapeBehavior>().AngularVelocity =
+                reader.ReadVector3();
+            AddBehavior<MovementShapeBehavior>().Velocity = reader.ReadVector3();
+        }
     }
 
     void LoadColors(GameDataReader reader)
@@ -142,6 +173,12 @@ public class Shape : PersistableObject
 
     public void Recycle()
     {
+        Age = 0;
+        foreach(ShapeBehavior behavior in behaviorList)
+        {
+            behavior.Recycle();
+        }
+        behaviorList.Clear();
         OriginFactory.Reclaim(this);
     }
 }

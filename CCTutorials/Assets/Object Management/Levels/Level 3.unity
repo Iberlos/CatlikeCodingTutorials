@@ -208,7 +208,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: b6008da2639b23447b15a0e3eb7eea55, type: 2}
     - {fileID: 11400000, guid: 7cedfe604bf4b0f4f9b7d430c4f54b59, type: 2}
     movementDirection: 2
-    spawnSpeed:
+    speed:
       min: 0
       max: 1
     angularSpeed:
@@ -228,6 +228,13 @@ MonoBehaviour:
         min: 0.4173744
         max: 0.9029362
     uniformColor: 0
+    oscillationDirection: 2
+    oscillationAmplitude:
+      min: 0
+      max: 5
+    oscillationFrequency:
+      min: 0
+      max: 1
   surfaceOnly: 0
 --- !u!4 &413535534
 Transform:
@@ -275,9 +282,9 @@ MonoBehaviour:
   spawnConfig:
     factories: []
     movementDirection: 0
-    spawnSpeed:
-      min: -2
-      max: 2
+    speed:
+      min: 0
+      max: 1
     angularSpeed:
       min: 0
       max: 1
@@ -295,6 +302,13 @@ MonoBehaviour:
         min: 0
         max: 1
     uniformColor: 0
+    oscillationDirection: 0
+    oscillationAmplitude:
+      min: 0
+      max: 1
+    oscillationFrequency:
+      min: 0
+      max: 1
   overrideConfig: 0
   spawnZones:
   - {fileID: 1396861419}
@@ -350,7 +364,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: b6008da2639b23447b15a0e3eb7eea55, type: 2}
     - {fileID: 11400000, guid: 7cedfe604bf4b0f4f9b7d430c4f54b59, type: 2}
     movementDirection: 0
-    spawnSpeed:
+    speed:
       min: 0
       max: 1
     angularSpeed:
@@ -370,6 +384,13 @@ MonoBehaviour:
         min: 0.4173744
         max: 0.9029362
     uniformColor: 0
+    oscillationDirection: 4
+    oscillationAmplitude:
+      min: 0
+      max: 0.1
+    oscillationFrequency:
+      min: 0
+      max: 0.1
   surfaceOnly: 0
 --- !u!4 &1055829948
 Transform:
@@ -419,7 +440,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: b6008da2639b23447b15a0e3eb7eea55, type: 2}
     - {fileID: 11400000, guid: 7cedfe604bf4b0f4f9b7d430c4f54b59, type: 2}
     movementDirection: 2
-    spawnSpeed:
+    speed:
       min: 0
       max: 1
     angularSpeed:
@@ -439,6 +460,13 @@ MonoBehaviour:
         min: 0.2620723
         max: 0.6505703
     uniformColor: 0
+    oscillationDirection: 1
+    oscillationAmplitude:
+      min: 0
+      max: 5
+    oscillationFrequency:
+      min: 0
+      max: 5
   surfaceOnly: 0
 --- !u!4 &1210786847
 Transform:
@@ -488,7 +516,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: b6008da2639b23447b15a0e3eb7eea55, type: 2}
     - {fileID: 11400000, guid: 7cedfe604bf4b0f4f9b7d430c4f54b59, type: 2}
     movementDirection: 0
-    spawnSpeed:
+    speed:
       min: 0
       max: 1
     angularSpeed:
@@ -508,6 +536,13 @@ MonoBehaviour:
         min: 0.4173744
         max: 0.9029362
     uniformColor: 0
+    oscillationDirection: 1
+    oscillationAmplitude:
+      min: 0
+      max: 5
+    oscillationFrequency:
+      min: 0
+      max: 1
   surfaceOnly: 0
 --- !u!4 &1396861420
 Transform:
@@ -557,7 +592,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: b6008da2639b23447b15a0e3eb7eea55, type: 2}
     - {fileID: 11400000, guid: 7cedfe604bf4b0f4f9b7d430c4f54b59, type: 2}
     movementDirection: 3
-    spawnSpeed:
+    speed:
       min: 0
       max: 1
     angularSpeed:
@@ -577,6 +612,13 @@ MonoBehaviour:
         min: 0.4173744
         max: 0.9029362
     uniformColor: 0
+    oscillationDirection: 1
+    oscillationAmplitude:
+      min: 0
+      max: 1
+    oscillationFrequency:
+      min: 0
+      max: 5
   surfaceOnly: 0
 --- !u!4 &1596139240
 Transform:
@@ -716,9 +758,9 @@ MonoBehaviour:
   spawnConfig:
     factories: []
     movementDirection: 0
-    spawnSpeed:
-      min: -2
-      max: 2
+    speed:
+      min: 0
+      max: 1
     angularSpeed:
       min: 0
       max: 1
@@ -736,6 +778,13 @@ MonoBehaviour:
         min: 0
         max: 1
     uniformColor: 0
+    oscillationDirection: 0
+    oscillationAmplitude:
+      min: 0
+      max: 1
+    oscillationFrequency:
+      min: 0
+      max: 1
   overrideConfig: 0
   spawnZones:
   - {fileID: 1055829947}
