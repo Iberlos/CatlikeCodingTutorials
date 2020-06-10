@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Object Management/ModularFunctionality.unity
+- path: Assets/Object Management/ShapeRelationships.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

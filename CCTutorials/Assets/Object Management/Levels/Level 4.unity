@@ -265,9 +265,9 @@ MonoBehaviour:
   spawnConfig:
     factories: []
     movementDirection: 0
-    spawnSpeed:
-      min: -2
-      max: 2
+    speed:
+      min: 0
+      max: 1
     angularSpeed:
       min: 0
       max: 1
@@ -285,6 +285,23 @@ MonoBehaviour:
         min: 0
         max: 1
     uniformColor: 0
+    oscillationDirection: 0
+    oscillationAmplitude:
+      min: 0
+      max: 1
+    oscillationFrequency:
+      min: 0
+      max: 1
+    satellite:
+      relativeScale:
+        min: 0
+        max: 1
+      orbitRadius:
+        min: 0
+        max: 1
+      orbitFrequency:
+        min: 0
+        max: 1
   overrideConfig: 0
   spawnZones:
   - {fileID: 1489297930}
@@ -337,7 +354,7 @@ MonoBehaviour:
     factories:
     - {fileID: 11400000, guid: 7cedfe604bf4b0f4f9b7d430c4f54b59, type: 2}
     movementDirection: 4
-    spawnSpeed:
+    speed:
       min: 0
       max: 1
     angularSpeed:
@@ -351,12 +368,29 @@ MonoBehaviour:
         min: 0.067944676
         max: 0.7670468
       saturation:
-        min: 0.2620723
-        max: 0.922349
+        min: 0.23295315
+        max: 0.8932298
       value:
         min: 0.11647658
         max: 0.873817
     uniformColor: 0
+    oscillationDirection: 0
+    oscillationAmplitude:
+      min: 0
+      max: 1
+    oscillationFrequency:
+      min: 0
+      max: 1
+    satellite:
+      relativeScale:
+        min: 0
+        max: 1
+      orbitRadius:
+        min: 0
+        max: 1
+      orbitFrequency:
+        min: 0
+        max: 1
   surfaceOnly: 0
 --- !u!1 &1664322086
 GameObject:
@@ -497,7 +531,7 @@ MonoBehaviour:
     factories:
     - {fileID: 11400000, guid: b6008da2639b23447b15a0e3eb7eea55, type: 2}
     movementDirection: 4
-    spawnSpeed:
+    speed:
       min: 0
       max: 1
     angularSpeed:
@@ -517,6 +551,23 @@ MonoBehaviour:
         min: 0.15530214
         max: 0.5923321
     uniformColor: 0
+    oscillationDirection: 0
+    oscillationAmplitude:
+      min: 0
+      max: 1
+    oscillationFrequency:
+      min: 0
+      max: 1
+    satellite:
+      relativeScale:
+        min: 0
+        max: 1
+      orbitRadius:
+        min: 0
+        max: 1
+      orbitFrequency:
+        min: 0
+        max: 1
   surfaceOnly: 0
 --- !u!1 &1779178508
 GameObject:

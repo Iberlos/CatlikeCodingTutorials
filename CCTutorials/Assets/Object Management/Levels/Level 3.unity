@@ -235,6 +235,16 @@ MonoBehaviour:
     oscillationFrequency:
       min: 0
       max: 1
+    satellite:
+      relativeScale:
+        min: 0
+        max: 1
+      orbitRadius:
+        min: 0
+        max: 1
+      orbitFrequency:
+        min: 0
+        max: 1
   surfaceOnly: 0
 --- !u!4 &413535534
 Transform:
@@ -309,6 +319,16 @@ MonoBehaviour:
     oscillationFrequency:
       min: 0
       max: 1
+    satellite:
+      relativeScale:
+        min: 0
+        max: 1
+      orbitRadius:
+        min: 0
+        max: 1
+      orbitFrequency:
+        min: 0
+        max: 1
   overrideConfig: 0
   spawnZones:
   - {fileID: 1396861419}
@@ -378,8 +398,8 @@ MonoBehaviour:
         min: 0.14559573
         max: 0.9514681
       saturation:
-        min: 0.038825512
-        max: 0.57291925
+        min: 0.06794466
+        max: 0.6020384
       value:
         min: 0.4173744
         max: 0.9029362
@@ -391,6 +411,16 @@ MonoBehaviour:
     oscillationFrequency:
       min: 0
       max: 0.1
+    satellite:
+      relativeScale:
+        min: 0
+        max: 1
+      orbitRadius:
+        min: 0
+        max: 1
+      orbitFrequency:
+        min: 0
+        max: 1
   surfaceOnly: 0
 --- !u!4 &1055829948
 Transform:
@@ -467,6 +497,16 @@ MonoBehaviour:
     oscillationFrequency:
       min: 0
       max: 5
+    satellite:
+      relativeScale:
+        min: 0
+        max: 1
+      orbitRadius:
+        min: 0
+        max: 1
+      orbitFrequency:
+        min: 0
+        max: 1
   surfaceOnly: 0
 --- !u!4 &1210786847
 Transform:
@@ -543,6 +583,16 @@ MonoBehaviour:
     oscillationFrequency:
       min: 0
       max: 1
+    satellite:
+      relativeScale:
+        min: 0
+        max: 1
+      orbitRadius:
+        min: 0
+        max: 1
+      orbitFrequency:
+        min: 0
+        max: 1
   surfaceOnly: 0
 --- !u!4 &1396861420
 Transform:
@@ -619,6 +669,16 @@ MonoBehaviour:
     oscillationFrequency:
       min: 0
       max: 5
+    satellite:
+      relativeScale:
+        min: 0
+        max: 1
+      orbitRadius:
+        min: 0
+        max: 1
+      orbitFrequency:
+        min: 0
+        max: 1
   surfaceOnly: 0
 --- !u!4 &1596139240
 Transform:
@@ -785,6 +845,16 @@ MonoBehaviour:
     oscillationFrequency:
       min: 0
       max: 1
+    satellite:
+      relativeScale:
+        min: 0
+        max: 1
+      orbitRadius:
+        min: 0
+        max: 1
+      orbitFrequency:
+        min: 0
+        max: 1
   overrideConfig: 0
   spawnZones:
   - {fileID: 1055829947}

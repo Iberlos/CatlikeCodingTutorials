@@ -37,6 +37,8 @@ public class Shape : PersistableObject
         }
     }
     public float Age { get; private set;}
+    public int InstanceId { get; private set; }
+    public int SaveIndex { get; set; }
 
     ShapeFactory originFactory;
     private int shapeId = int.MinValue;
@@ -92,9 +94,13 @@ public class Shape : PersistableObject
     public void GameUpdate()
     {
         Age += Time.fixedDeltaTime;
-        foreach(ShapeBehavior behavior in behaviorList)
+        for (int i = 0; i < behaviorList.Count; i++)
         {
-            behavior.GameUpdate(this);
+            if (!behaviorList[i].GameUpdate(this))
+            {
+                behaviorList[i].Recycle();
+                behaviorList.RemoveAt(i--);
+            }
         }
     }
 
@@ -174,11 +180,20 @@ public class Shape : PersistableObject
     public void Recycle()
     {
         Age = 0;
+        InstanceId++;
         foreach(ShapeBehavior behavior in behaviorList)
         {
             behavior.Recycle();
         }
         behaviorList.Clear();
         OriginFactory.Reclaim(this);
+    }
+
+    public void ResolveShapeInstances()
+    {
+        for (int i = 0; i < behaviorList.Count; i++)
+        {
+            behaviorList[i].ResolveShapeInstances();
+        }
     }
 }

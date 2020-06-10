@@ -34,7 +34,7 @@ public class Game : PersistableObject
     [SerializeField]
     private bool reseedOnLoad;
 
-
+    public static Game Instance { get; private set;}
 
     public float CreationSpeed { get; set; }
     public float DestructionSpeed { get; set; }
@@ -70,6 +70,8 @@ public class Game : PersistableObject
 
     private void OnEnable()
     {
+        Instance = this;
+
         if(shapeFactories[0].FactoryId != 0)//if the ids were not initialized yet
         {
             for (int i = 0; i < shapeFactories.Length; i++)
@@ -137,11 +139,20 @@ public class Game : PersistableObject
             destructionProgress -= 1;
             DestroyShape();
         }
+
+        int limit = GameLevel.Current.PopulationLimit;
+        if (limit > 0)
+        {
+            while (shapes.Count > limit)
+            {
+                DestroyShape();
+            }
+        }
     }
 
     void CreateShape()
     {
-        shapes.Add(GameLevel.Current.SpawnShape());
+        GameLevel.Current.SpawnShapes();
         //update counter **ADED**
         activeShapeCounterLable.text = "Active Shapes = " + shapes.Count;
     }
@@ -153,6 +164,7 @@ public class Game : PersistableObject
             int index = Random.Range(0, shapes.Count);
             shapes[index].Recycle();
             int lastIndex = shapes.Count - 1;
+            shapes[lastIndex].SaveIndex = index;
             shapes[index] = shapes[lastIndex];
             shapes.RemoveAt(lastIndex);
             //update counter **ADED**
@@ -239,7 +251,10 @@ public class Game : PersistableObject
             int materialId = version > 0 ? reader.ReadInt() : 0;
             Shape instance = shapeFactories[factoryId].Get(shapeId, materialId);
             instance.Load(reader);
-            shapes.Add(instance);
+        }
+        for (int i = 0; i < shapes.Count; i++)
+        {
+            shapes[i].ResolveShapeInstances();
         }
         //update counter **ADED**
         activeShapeCounterLable.text = "Active Shapes = " + shapes.Count;
@@ -256,5 +271,16 @@ public class Game : PersistableObject
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(levelBuildIndex));
         loadedLevelBuildIndex = levelBuildIndex;
         enabled = true;
+    }
+
+    public void AddShape(Shape shape)
+    {
+        shape.SaveIndex = shapes.Count;
+        shapes.Add(shape);
+    }
+
+    public Shape GetShape(int index)
+    {
+        return shapes[index];
     }
 }

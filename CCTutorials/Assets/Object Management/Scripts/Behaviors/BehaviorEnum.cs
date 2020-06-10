@@ -3,7 +3,8 @@ public enum ShapeBehaviorType
 {
     Movement = 0,
     Rotation,
-    Oscillation
+    Oscillation,
+    Satellite
 }
 
 public static class ShapeBehaviorTypeMethods //extension methods
@@ -18,6 +19,8 @@ public static class ShapeBehaviorTypeMethods //extension methods
                 return ShapeBehaviorPool<RotationShapeBehavior>.Get();
             case ShapeBehaviorType.Oscillation:
                 return ShapeBehaviorPool<OscillationShapeBehavior>.Get();
+            case ShapeBehaviorType.Satellite:
+                return ShapeBehaviorPool<SatelliteShapeBehavior>.Get();
         }
         UnityEngine.Debug.Log("Forgot to Support " + type);
         return null;
