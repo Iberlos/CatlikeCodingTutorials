@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f278e331e67681c43bcd4a06293ede57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  populationLimit: 0
   spawnZone: {fileID: 791269681}
   persistableObjects: []
 --- !u!4 &175110249
@@ -229,6 +230,9 @@ MonoBehaviour:
       min: 0
       max: 1
     satellite:
+      amount:
+        min: 0
+        max: 0
       relativeScale:
         min: 0
         max: 1
@@ -238,6 +242,17 @@ MonoBehaviour:
       orbitFrequency:
         min: 0
         max: 1
+      uniformLifecycles: 0
+    lifecycle:
+      growingDuration:
+        min: 0.5435574
+        max: 1.5435572
+      adultDuration:
+        min: 0
+        max: 1
+      dyingDuration:
+        min: 0.038825527
+        max: 1.0388255
   surfaceOnly: 0
 --- !u!4 &791269682
 Transform:
