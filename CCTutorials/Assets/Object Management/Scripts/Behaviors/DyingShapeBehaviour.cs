@@ -10,7 +10,7 @@ public sealed class DyingShapeBehavior : ShapeBehavior
     {
         get
         {
-            return ShapeBehaviorType.Growing;
+            return ShapeBehaviorType.Dying;
         }
     }
 

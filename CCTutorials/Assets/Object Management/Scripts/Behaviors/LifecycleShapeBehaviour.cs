@@ -9,7 +9,7 @@ public sealed class LifecycleShapeBehavior : ShapeBehavior
     {
         get
         {
-            return ShapeBehaviorType.Growing;
+            return ShapeBehaviorType.Lifecycle;
         }
     }
 
