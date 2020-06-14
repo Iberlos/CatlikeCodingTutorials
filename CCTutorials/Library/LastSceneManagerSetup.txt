@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/MovingTheGround/PreviousTestLevels/ProBuilderTestScene_Stairs.unity
+- path: Assets/Climbing/ProBuilderTestScene_ClimbingTestGrounds.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
