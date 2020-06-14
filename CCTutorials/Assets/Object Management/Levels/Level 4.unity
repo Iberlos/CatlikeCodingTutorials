@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   populationLimit: 0
   spawnZone: {fileID: 733717938}
-  persistableObjects:
+  levelObjects:
   - {fileID: 1779178509}
   - {fileID: 355606684}
   - {fileID: 733717938}
@@ -263,6 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0accc4dd8fd284589d29d26e3f30dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnSpeed: 0
   spawnConfig:
     factories: []
     movementDirection: 0
@@ -365,6 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc80fec32deaad4d8d52287c8a8acff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnSpeed: 0
   spawnConfig:
     factories:
     - {fileID: 11400000, guid: 7cedfe604bf4b0f4f9b7d430c4f54b59, type: 2}
@@ -556,6 +558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc80fec32deaad4d8d52287c8a8acff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnSpeed: 0
   spawnConfig:
     factories:
     - {fileID: 11400000, guid: b6008da2639b23447b15a0e3eb7eea55, type: 2}
@@ -571,14 +574,14 @@ MonoBehaviour:
       max: 2
     color:
       hue:
-        min: 0.25236595
-        max: 0.8349916
+        min: 0.067944676
+        max: 0.7670468
       saturation:
-        min: 0.08735743
-        max: 0.8641106
+        min: 0.19412762
+        max: 0.8544043
       value:
-        min: 0.15530214
-        max: 0.5923321
+        min: 0.11647658
+        max: 0.873817
     uniformColor: 0
     oscillationDirection: 0
     oscillationAmplitude:
@@ -592,7 +595,7 @@ MonoBehaviour:
         min: 0
         max: 0
       relativeScale:
-        min: 0
+        min: 0.1
         max: 1
       orbitRadius:
         min: 0
@@ -603,14 +606,14 @@ MonoBehaviour:
       uniformLifecycles: 0
     lifecycle:
       growingDuration:
-        min: 0
-        max: 1
+        min: 0.09706382
+        max: 1.0970638
       adultDuration:
         min: 0
         max: 1
       dyingDuration:
-        min: 0
-        max: 1
+        min: 0.019412763
+        max: 1.0194128
   surfaceOnly: 0
 --- !u!1 &1779178508
 GameObject:

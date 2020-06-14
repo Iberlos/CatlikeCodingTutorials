@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameLevel : PersistableObject
+public partial class GameLevel : PersistableObject
 {
     [SerializeField]
     int populationLimit;
     [SerializeField]
     private SpawnZone spawnZone;
+
+    //[UnityEngine.Serialization.FormerlySerializedAs("persistentObjects")] //Can be used to avoid reassigning the references when changing the name of a field. Can be removed after all instacnes have been confirmed as updated.
     [SerializeField]
-    PersistableObject[] persistableObjects;
+    GameLevelObject[] levelObjects;
 
     public int PopulationLimit
     {
@@ -28,16 +30,24 @@ public class GameLevel : PersistableObject
     private void OnEnable()
     {
         Current = this;
-        if(persistableObjects == null)
+        if (levelObjects == null)
         {
-            persistableObjects = new PersistableObject[0];
+            levelObjects = new GameLevelObject[0];
+        }
+    }
+
+    public void GameUpdate()
+    {
+        for (int i = 0; i < levelObjects.Length; i++)
+        {
+            levelObjects[i].GameUpdate();
         }
     }
 
     public override void Save(GameDataWriter writer)
     {
-        writer.Write(persistableObjects.Length);
-        foreach(PersistableObject obj in persistableObjects)
+        writer.Write(levelObjects.Length);
+        foreach (PersistableObject obj in levelObjects)
         {
             obj.Save(writer);
         }
@@ -46,9 +56,9 @@ public class GameLevel : PersistableObject
     public override void Load(GameDataReader reader)
     {
         int savedCount = reader.ReadInt();
-        for (int i = 0; i<savedCount; i++)
+        for (int i = 0; i < savedCount; i++)
         {
-            persistableObjects[i].Load(reader);
+            levelObjects[i].Load(reader);
         }
     }
 }

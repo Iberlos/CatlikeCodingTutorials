@@ -45,7 +45,7 @@ public class Game : PersistableObject
     private Random.State mainRandomState;
     private List<Shape> shapes;
     private List<ShapeInstance> killList, markAsDyingList;
-    private const int saveVersion = 6;
+    private const int saveVersion = 7;
     private float creationProgress, destructionProgress;
     private int loadedLevelBuildIndex;
     private bool inGameUpdateLoop;
@@ -157,6 +157,7 @@ public class Game : PersistableObject
                 DestroyShape();
             }
         }
+        GameLevel.Current.GameUpdate();
         inGameUpdateLoop = false;
 
         //kill shapes that were requested during the game update

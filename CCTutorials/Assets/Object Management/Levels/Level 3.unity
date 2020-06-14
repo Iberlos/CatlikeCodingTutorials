@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   populationLimit: 0
   spawnZone: {fileID: 791269681}
-  persistableObjects:
+  levelObjects:
   - {fileID: 791269681}
   - {fileID: 1396861419}
   - {fileID: 1596139239}
@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48eb9bfd587ab8e49b58e6cc684dc727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnSpeed: 0
   spawnConfig:
     factories:
     - {fileID: 11400000, guid: b6008da2639b23447b15a0e3eb7eea55, type: 2}
@@ -304,6 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0accc4dd8fd284589d29d26e3f30dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnSpeed: 0
   spawnConfig:
     factories: []
     movementDirection: 0
@@ -408,6 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48eb9bfd587ab8e49b58e6cc684dc727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnSpeed: 0
   spawnConfig:
     factories:
     - {fileID: 11400000, guid: b6008da2639b23447b15a0e3eb7eea55, type: 2}
@@ -508,6 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc80fec32deaad4d8d52287c8a8acff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnSpeed: 0
   spawnConfig:
     factories:
     - {fileID: 11400000, guid: b6008da2639b23447b15a0e3eb7eea55, type: 2}
@@ -556,8 +560,8 @@ MonoBehaviour:
       uniformLifecycles: 0
     lifecycle:
       growingDuration:
-        min: 0.34942976
-        max: 1.3494296
+        min: 0.330017
+        max: 1.3300169
       adultDuration:
         min: 0
         max: 1
@@ -608,6 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48eb9bfd587ab8e49b58e6cc684dc727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnSpeed: 0
   spawnConfig:
     factories:
     - {fileID: 11400000, guid: b6008da2639b23447b15a0e3eb7eea55, type: 2}
@@ -708,6 +713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48eb9bfd587ab8e49b58e6cc684dc727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnSpeed: 0
   spawnConfig:
     factories:
     - {fileID: 11400000, guid: b6008da2639b23447b15a0e3eb7eea55, type: 2}
@@ -900,6 +906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0accc4dd8fd284589d29d26e3f30dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnSpeed: 0
   spawnConfig:
     factories: []
     movementDirection: 0
