@@ -93,7 +93,7 @@ public class GameBoard : MonoBehaviour
             }
         }
 
-        ToggleDestination(tiles[tiles.Length / 2]);
+        Construct(tiles[tiles.Length / 2], GameTileContentType.Destination);
     }
 
     private bool FindPaths()
@@ -169,37 +169,28 @@ public class GameBoard : MonoBehaviour
         return null;
     }
 
-    public void ToggleDestination(GameTile tile)
+    public void Construct(GameTile tile, GameTileContentType type)
     {
-        if (tile.Content.Type == GameTileContentType.Destination)
+        if (tile.Content.Type == GameTileContentType.Empty)
         {
-            tile.Content = contentFactory.Get(GameTileContentType.Empty);
-            if(!FindPaths())
+            tile.Content = contentFactory.Get(type);
+            if (!FindPaths())
             {
-                tile.Content = contentFactory.Get(GameTileContentType.Destination);
+                tile.Content = contentFactory.Get(GameTileContentType.Empty);
                 FindPaths();
             }
         }
-        else if (tile.Content.Type == GameTileContentType.Empty)
-        {
-            tile.Content = contentFactory.Get(GameTileContentType.Destination);
-            FindPaths();
-        }
     }
 
-    public void ToggleWall(GameTile tile)
+    public void Deconstruct(GameTile tile)
     {
-        if (tile.Content.Type == GameTileContentType.Wall)
+        if (tile.Content.Type != GameTileContentType.Empty)
         {
+            GameTileContentType previousContentType = tile.Content.Type;
             tile.Content = contentFactory.Get(GameTileContentType.Empty);
-            FindPaths();
-        }
-        else if (tile.Content.Type == GameTileContentType.Empty)
-        {
-            tile.Content = contentFactory.Get(GameTileContentType.Wall);
-            if(!FindPaths())
+            if (!FindPaths())
             {
-                tile.Content = contentFactory.Get(GameTileContentType.Empty);
+                tile.Content = contentFactory.Get(previousContentType);
                 FindPaths();
             }
         }

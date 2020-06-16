@@ -4,9 +4,11 @@ using UnityEngine;
 
 public enum GameTileContentType
 {
+    Invalid = -1,
     Empty = 0,
+    Wall,
     Destination,
-    Wall
+    Last
 }
 
 public class GameTileContent : MonoBehaviour
