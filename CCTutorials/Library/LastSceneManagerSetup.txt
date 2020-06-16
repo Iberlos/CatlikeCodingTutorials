@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Climbing/ProBuilderTestScene_ClimbingTestGrounds.unity
+- path: Assets/Climbing/PreviousTestLevels/ProBuilderTestLevel_OriginCenteredPlanet.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
