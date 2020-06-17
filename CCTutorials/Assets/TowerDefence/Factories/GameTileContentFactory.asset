@@ -18,3 +18,5 @@ MonoBehaviour:
     type: 3}
   destinationPrefab: {fileID: 5429669758535756956, guid: cb20a5edf815449449bc321c2f7f18c0,
     type: 3}
+  spawnPointPrefab: {fileID: 5429669758535756956, guid: 912bc5096481a6b45b79ebeb67cec2e3,
+    type: 3}

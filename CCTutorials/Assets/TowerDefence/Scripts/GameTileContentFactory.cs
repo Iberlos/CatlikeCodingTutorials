@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 [CreateAssetMenu]
-public class GameTileContentFactory : ScriptableObject
+public class GameTileContentFactory : GameObjectFactory
 {
     [SerializeField]
-    GameTileContent emptyPrefab = default;
+    private GameTileContent emptyPrefab = default;
     [SerializeField]
-    GameTileContent wallPrefab = default;
+    private GameTileContent wallPrefab = default;
     [SerializeField]
-    GameTileContent destinationPrefab = default;
-
-    private Scene contentScene;
+    private GameTileContent destinationPrefab = default;
+    [SerializeField]
+    private GameTileContent spawnPointPrefab = default;
 
     public GameTileContent Get(GameTileContentType type)
     {
@@ -20,6 +20,7 @@ public class GameTileContentFactory : ScriptableObject
             case GameTileContentType.Empty: return Get(emptyPrefab);
             case GameTileContentType.Wall: return Get(wallPrefab);
             case GameTileContentType.Destination: return Get(destinationPrefab);
+            case GameTileContentType.SpawnPoint: return Get(spawnPointPrefab);
         }
         Debug.Assert(false, "Unsupported Type: " + type);
         return null;
@@ -27,30 +28,9 @@ public class GameTileContentFactory : ScriptableObject
 
     private GameTileContent Get(GameTileContent prefab)
     {
-        GameTileContent instance = Instantiate(prefab);
+        GameTileContent instance = CreateGameObjectInstance(prefab);
         instance.OriginFactory = this;
-        MoveToFactoryScene(instance.gameObject);
         return instance;
-    }
-
-    private void MoveToFactoryScene(GameObject o)
-    {
-        if(!contentScene.isLoaded)
-        {
-            if(Application.isEditor)
-            {
-                contentScene = SceneManager.GetSceneByName(name);
-                if(!contentScene.isLoaded)
-                {
-                    contentScene = SceneManager.CreateScene(name);
-                }
-            }
-            else
-            {
-                contentScene = SceneManager.CreateScene(name);
-            }
-        }
-        SceneManager.MoveGameObjectToScene(o, contentScene);
     }
 
     public void Reclaim(GameTileContent content)

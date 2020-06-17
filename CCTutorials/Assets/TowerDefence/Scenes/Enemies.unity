@@ -290,7 +290,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 100, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -325,9 +325,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d37f77291759894b8c386e970dfc538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardSize: {x: 100, y: 100}
+  boardSize: {x: 11, y: 11}
   board: {fileID: 1909437580}
   tileContentFactory: {fileID: 11400000, guid: 36378a1b67271a849ad3e3baf1a2ab8a, type: 2}
+  enemyFactory: {fileID: 11400000, guid: efd8bdc51f8fb724e908ac3bf2290283, type: 2}
+  spawnSpeed: 4
 --- !u!4 &1202016423
 Transform:
   m_ObjectHideFlags: 0
