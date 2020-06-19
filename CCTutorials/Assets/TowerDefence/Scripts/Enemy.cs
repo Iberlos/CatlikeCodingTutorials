@@ -5,6 +5,10 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     Transform model = default;
 
+    public float Scale { get; private set; }
+
+    public float Health { get; set; }
+
     private GameTile tileFrom, tileTo;
     private Vector3 positionFrom, positionTo;
     private float progress, progressFactor;
@@ -13,6 +17,7 @@ public class Enemy : MonoBehaviour
     private float directionAngleFrom, directionAngleTo;
     private float pathOffset;
     private float speed;
+
 
     public EnemyFactory OriginFactory
     {
@@ -28,9 +33,11 @@ public class Enemy : MonoBehaviour
 
     public void Initialize(float scale, float speed, float pathOffset)
     {
+        Scale = scale;
         model.localScale = new Vector3(scale, scale, scale);
         this.speed = speed;
         this.pathOffset = pathOffset;
+        Health = 100f * scale;
     }
 
     public void SpawnOn(GameTile tile)
@@ -55,6 +62,12 @@ public class Enemy : MonoBehaviour
 
     public bool GameUpdate()
     {
+        if(Health <= 0f)
+        {
+            OriginFactory.Reclaim(this);
+            return false;
+        }
+
         progress += Time.deltaTime * progressFactor;
         while(progress >= 1f)
         {
@@ -142,5 +155,11 @@ public class Enemy : MonoBehaviour
         model.localPosition = new Vector3(pathOffset, 0f);
         transform.localRotation = direction.GetRotation();
         progressFactor = 2f * speed;
+    }
+
+    public void ApplyDamage(float damage)
+    {
+        Debug.Assert(damage >= 0f, "Negative damage applied.");
+        Health -= damage;
     }
 }
