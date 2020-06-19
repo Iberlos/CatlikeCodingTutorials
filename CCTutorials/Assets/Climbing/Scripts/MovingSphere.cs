@@ -66,11 +66,14 @@ public class MovingSphere : MonoBehaviour
     MeshRenderer meshRenderer;
     Vector2 playerInput;
 
+    private Player player;
+
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = GetComponent<MeshRenderer>();
+        player = GetComponent<Player>();
         OnValidate();
     }
 
@@ -102,6 +105,8 @@ public class MovingSphere : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
+
+        player.EvaluateGravity(gravity.magnitude);
 
         UpdateState();
         AdjustVelocity();

@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Climbing/ProBuilderTestLevel_OriginCenteredPlanet.unity
+    guid: 71b632d86390c3f49ae52df868aa82e2
   m_configObjects: {}
