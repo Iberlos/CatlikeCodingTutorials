@@ -11,12 +11,18 @@ public class Game : MonoBehaviour
     [SerializeField]
     private EnemyFactory enemyFactory = default;
     [SerializeField]
+    private WarFactory warFactory = default;
+    [SerializeField]
     float spawnSpeed = 1f;
 
     private Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
 
     private float spawnProgress;
-    private EnemyCollection enemies = new EnemyCollection();
+    private GameBehaviorCollection enemies = new GameBehaviorCollection();
+    private GameBehaviorCollection nonEnemies = new GameBehaviorCollection();
+    private TowerType selectedTowerType = TowerType.Laser;
+
+    static Game instance;
 
     private void OnValidate()
     {
@@ -36,6 +42,11 @@ public class Game : MonoBehaviour
         board.ShowGrid = true;
     }
 
+    private void OnEnable()
+    {
+        instance = this;
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -53,6 +64,15 @@ public class Game : MonoBehaviour
             board.ShowGrid = !board.ShowGrid;
         }
 
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            selectedTowerType = TowerType.Laser;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            selectedTowerType = TowerType.Mortar;
+        }
+
         spawnProgress += spawnSpeed * Time.deltaTime;
         while(spawnProgress >= 1f)
         {
@@ -63,6 +83,7 @@ public class Game : MonoBehaviour
         enemies.GameUpdate();
         Physics.SyncTransforms();
         board.GameUpdate();
+        nonEnemies.GameUpdate();
     }
 
     void HandleAlternativeTouch()
@@ -82,7 +103,7 @@ public class Game : MonoBehaviour
         {
             if(Input.GetKey(KeyCode.LeftShift))
             {
-                board.ToggleTower(tile);
+                board.ToggleTower(tile, selectedTowerType);
             }
             else
             {
@@ -97,5 +118,19 @@ public class Game : MonoBehaviour
         Enemy enemy = enemyFactory.Get();
         enemy.SpawnOn(spawnPoint);
         enemies.Add(enemy);
+    }
+
+    public static Shell SpawnShell()
+    {
+        Shell shell = instance.warFactory.Shell;
+        instance.nonEnemies.Add(shell);
+        return shell;
+    }
+
+    public static Explosion SpawnExplosion()
+    {
+        Explosion explosion = instance.warFactory.Explosion;
+        instance.nonEnemies.Add(explosion);
+        return explosion;
     }
 }

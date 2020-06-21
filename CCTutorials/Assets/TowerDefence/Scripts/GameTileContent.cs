@@ -11,6 +11,12 @@ public enum GameTileContentType
     Tower
 }
 
+public enum TowerType
+{
+    Laser = 0,
+    Mortar
+}
+
 [SelectionBase]
 public class GameTileContent : MonoBehaviour
 {
