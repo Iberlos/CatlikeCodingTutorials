@@ -21,16 +21,12 @@ public class LaserTower : Tower
 
     public override void GameUpdate()
     {
-        if (TrackTarget(ref target))
+        if (TrackTarget(ref target) || AcquireTarget(out target))
         {
-            Debug.Log("Tracking Target...");
             Shoot();
         }
-        else if (AcquireTarget(out target))
-            Debug.Log("Acquired Target!");
         else
         {
-            Debug.Log("Searching for target...");
             laserBeam.localScale = Vector3.zero;
         }
     }

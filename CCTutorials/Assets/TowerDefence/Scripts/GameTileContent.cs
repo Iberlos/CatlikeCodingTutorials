@@ -2,21 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameTileContentType
-{
-    Empty = 0,
-    Destination,
-    Wall,
-    SpawnPoint,
-    Tower
-}
-
-public enum TowerType
-{
-    Laser = 0,
-    Mortar
-}
-
 [SelectionBase]
 public class GameTileContent : MonoBehaviour
 {
