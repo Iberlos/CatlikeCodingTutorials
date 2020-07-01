@@ -330,6 +330,8 @@ MonoBehaviour:
   tileContentFactory: {fileID: 11400000, guid: 36378a1b67271a849ad3e3baf1a2ab8a, type: 2}
   warFactory: {fileID: 11400000, guid: a4f60c31a4e175d499800da170e3211f, type: 2}
   scenario: {fileID: 11400000, guid: a6906ac71c8359049b804ba9b68d1759, type: 2}
+  startingPlayerHealth: 10
+  playSpeed: 1
 --- !u!4 &1202016423
 Transform:
   m_ObjectHideFlags: 0
@@ -371,7 +373,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361618180}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1909437581}
