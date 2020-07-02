@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Climbing/PreviousTestLevels/ProBuilderTestLevel_OriginCenteredPlanet.unity
+- path: Assets/Swimming/ProBuilderTestLevel_Swimming.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
