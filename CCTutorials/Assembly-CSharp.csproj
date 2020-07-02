@@ -62,15 +62,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Swimming\Scripts\CustomGravity.cs" />
-    <Compile Include="Assets\Swimming\Scripts\GravitySource.cs" />
-    <Compile Include="Assets\Swimming\Scripts\GravitySources\GravityBox.cs" />
-    <Compile Include="Assets\Swimming\Scripts\GravitySources\GravityPlane.cs" />
-    <Compile Include="Assets\Swimming\Scripts\GravitySources\GravitySphere.cs" />
-    <Compile Include="Assets\Swimming\Scripts\MovingPlatform.cs" />
-    <Compile Include="Assets\Swimming\Scripts\MovingSphere.cs" />
-    <Compile Include="Assets\Swimming\Scripts\OrbitCamera.cs" />
-    <Compile Include="Assets\Swimming\Scripts\RigidBody_ComplexGravityExtension.cs" />
+    <Compile Include="Assets\Climbing\Scripts\CustomGravity.cs" />
+    <Compile Include="Assets\Climbing\Scripts\GravitySource.cs" />
+    <Compile Include="Assets\Climbing\Scripts\GravitySources\GravityBox.cs" />
+    <Compile Include="Assets\Climbing\Scripts\GravitySources\GravityPlane.cs" />
+    <Compile Include="Assets\Climbing\Scripts\GravitySources\GravitySphere.cs" />
+    <Compile Include="Assets\Climbing\Scripts\MovingPlatform.cs" />
+    <Compile Include="Assets\Climbing\Scripts\MovingSphere.cs" />
+    <Compile Include="Assets\Climbing\Scripts\OrbitCamera.cs" />
+    <Compile Include="Assets\Climbing\Scripts\RigidBody_ComplexGravityExtension.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Documents/Projects_Unity/CatlikeCodingTutorials/CCTutorials/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
