@@ -70,7 +70,8 @@
     <Compile Include="Assets\Swimming\Scripts\MovingPlatform.cs" />
     <Compile Include="Assets\Swimming\Scripts\MovingSphere.cs" />
     <Compile Include="Assets\Swimming\Scripts\OrbitCamera.cs" />
-    <Compile Include="Assets\Swimming\Scripts\RigidBody_ComplexGravityExtension.cs" />
+    <Compile Include="Assets\Swimming\Scripts\RigidBody_FloatingExtension.cs" />
+    <Compile Include="Assets\Swimming\Scripts\RigidBody_StableFloatingExtension.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Documents/Projects_Unity/CatlikeCodingTutorials/CCTutorials/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

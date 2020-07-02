@@ -100,7 +100,7 @@ PrefabInstance:
     - target: {fileID: 2091485650854060792, guid: 6ee04afb3746d43438962370e6fcc5b6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2091485650854060792, guid: 6ee04afb3746d43438962370e6fcc5b6,
         type: 3}
@@ -152,6 +152,16 @@ PrefabInstance:
       propertyPath: playerInputSpace
       value: 
       objectReference: {fileID: 2324889802043310251}
+    - target: {fileID: 2797526749413689527, guid: 6ee04afb3746d43438962370e6fcc5b6,
+        type: 3}
+      propertyPath: waterMask.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2797526749413689527, guid: 6ee04afb3746d43438962370e6fcc5b6,
+        type: 3}
+      propertyPath: swimmingMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: e63f562da32681d4da04b54379152d07, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ee04afb3746d43438962370e6fcc5b6, type: 3}
 --- !u!4 &4572120513132881738 stripped
