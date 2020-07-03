@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Game : MonoBehaviour
 {
+    [SerializeField]
+    private CameraBehavior gameCamera = default;
     [SerializeField]
     private Vector2Int boardSize = new Vector2Int(11, 11);
     [SerializeField]
@@ -84,11 +87,13 @@ public class Game : MonoBehaviour
             BeginNewGame();
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        gameCamera.ApplyInput(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), Input.GetAxis("Rotate"), Input.mouseScrollDelta.y);
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Time.timeScale = Time.timeScale > pausedTimeScale ? pausedTimeScale : playSpeed;
         }
-        else if(Time.timeScale > pausedTimeScale)
+        else if (Time.timeScale > pausedTimeScale)
         {
             Time.timeScale = playSpeed;
         }
@@ -110,6 +115,7 @@ public class Game : MonoBehaviour
         Physics.SyncTransforms();
         board.GameUpdate();
         nonEnemies.GameUpdate();
+        gameCamera.GameUpdate();
     }
 
     private void BeginNewGame()
@@ -133,16 +139,19 @@ public class Game : MonoBehaviour
 
     void HandleTouch()
     {
-        GameTile tile = board.GetTile(TouchRay);
-        if(tile != null)
+        if(!EventSystem.current.IsPointerOverGameObject())
         {
-            if(Input.GetKey(KeyCode.LeftShift))
+            GameTile tile = board.GetTile(TouchRay);
+            if (tile != null)
             {
-                board.ToggleTower(tile, selectedTowerType);
-            }
-            else
-            {
-                board.ToggleWall(tile);
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    board.ToggleTower(tile, selectedTowerType);
+                }
+                else
+                {
+                    board.ToggleWall(tile);
+                }
             }
         }
     }

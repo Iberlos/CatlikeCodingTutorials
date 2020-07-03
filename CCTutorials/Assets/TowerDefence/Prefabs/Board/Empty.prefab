@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TB_Env_GroundBA
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d7eb0ad29a4c6d543a2048dce304c3d6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d7eb0ad29a4c6d543a2048dce304c3d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
