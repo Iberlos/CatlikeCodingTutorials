@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEditor;
 
 public class Game : MonoBehaviour
 {
@@ -24,7 +25,6 @@ public class Game : MonoBehaviour
 
     private GameBehaviorCollection enemies = new GameBehaviorCollection();
     private GameBehaviorCollection nonEnemies = new GameBehaviorCollection();
-    private TowerType selectedTowerType = TowerType.Laser;
     private GameScenario.State activeScenario;
     private int playerHealth;
     private const float pausedTimeScale = 0f;
@@ -63,9 +63,9 @@ public class Game : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             HandleHold();
-            if(Input.GetMouseButtonUp(0))
-                HandleRelease();
         }
+        if (Input.GetMouseButtonUp(0))
+            HandleRelease();
         if (Input.GetMouseButtonDown(1))
             HandleAlternativeTouch();
 
@@ -77,15 +77,6 @@ public class Game : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.G))
         {
             board.ShowGrid = !board.ShowGrid;
-        }
-
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            selectedTowerType = TowerType.Laser;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            selectedTowerType = TowerType.Mortar;
         }
 
         if(Input.GetKeyDown(KeyCode.B))
@@ -176,5 +167,13 @@ public class Game : MonoBehaviour
     public static void EnemyReachedDestination()
     {
         instance.playerHealth -= 1;
+    }
+
+    public void ExitGame()
+    {
+        if(Application.isEditor)
+            EditorApplication.ExecuteMenuItem("Edit/Play");
+        else
+            Application.Quit();
     }
 }

@@ -87,7 +87,7 @@ public class GameTile : MonoBehaviour
 
     public Vector3 ExitPoint { get; private set; }
 
-    public GameTile north, east, south, west, nextOnPath;
+    public GameTile north, northEast, east, southEast, south, southWest, west, northWest, nextOnPath;
     private int distance;
     private static Quaternion
         northRotation = Quaternion.Euler(90f, 0f, 0f),
@@ -96,18 +96,34 @@ public class GameTile : MonoBehaviour
         westRotation = Quaternion.Euler(90f, 270f, 0f);
     private GameTileContent content;
 
-    public static void MakeEastWestNeighbors(GameTile east, GameTile west)
+    public static void MakeEastWestNeighbors(GameTile tile, GameTile west)
     {
-        Debug.Assert(west.east == null && east.west == null, "Redefined East/West neighbors!");
-        west.east = east;
-        east.west = west;
+        Debug.Assert(west.east == null && tile.west == null, "Redefined East/West neighbors!");
+        west.east = tile;
+        tile.west = west;
     }
 
-    public static void MakeNorthSouthNeighbors(GameTile north, GameTile south)
+    public static void MakeNorthSouthNeighbors(GameTile tile, GameTile south)
     {
-        Debug.Assert(south.north == null && north.south == null, "Redefined North/Sounth neighbors!");
-        south.north = north;
-        north.south = south;
+        Debug.Assert(south.north == null && tile.south == null, "Redefined North/Sounth neighbors!");
+        south.north = tile;
+        tile.south = south;
+    }
+
+    public static void MakeDiagonalNeighbours(GameTile tile, GameTile south)
+    {
+        if(south.east != null)
+        {
+            Debug.Assert(south.east.northWest == null && tile.southEast == null, "Redefined Diagonal neighbors!");
+            south.east.northWest = tile;
+            tile.southEast = south.east;
+        }
+        if(south.west!= null)
+        {
+            Debug.Assert(south.west.northEast == null && tile.southWest == null, "Redefined Diagonal neighbors!");
+            south.west.northEast = tile;
+            tile.southWest = south.west;
+        }
     }
 
     public void ClearPath()

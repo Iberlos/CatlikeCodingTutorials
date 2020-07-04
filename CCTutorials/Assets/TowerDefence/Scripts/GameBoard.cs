@@ -86,14 +86,22 @@ public class GameBoard : MonoBehaviour
                     GameTile.MakeEastWestNeighbors(tile, tiles[i - 1]);
                 if (y > 0)
                     GameTile.MakeNorthSouthNeighbors(tile, tiles[i - size.x]);
+                if (x > 0 && y > 0)
+                    GameTile.MakeDiagonalNeighbours(tile, tiles[i - size.x]);
 
                 tile.IsAlternative = (x & 1) == 0;
                 if((y&1) ==0)
                 {
                     tile.IsAlternative = !tile.IsAlternative;
                 }
+            }
+        }
 
-                
+        for (int i = 0, y = 0; y < size.y; y++)//i is defined here
+        {
+            for (int x = 0; x < size.x; x++, i++)//i is incremented here
+            {
+
             }
         }
 
@@ -207,6 +215,10 @@ public class GameBoard : MonoBehaviour
     {
         if(tile.Content.Type != GameTileContentType.Empty)
         {
+            if (tile.Content.Type == GameTileContentType.Tower) //Fix for tower removal causing issues in update
+            {
+                updatingContent.Remove(tile.Content);
+            }
             tile.Content = contentFactory.Get(GameTileContentType.Empty);
             if (!FindPaths())
             {
