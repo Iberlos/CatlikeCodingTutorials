@@ -87,7 +87,7 @@ public class GameTile : MonoBehaviour
 
     public Vector3 ExitPoint { get; private set; }
 
-    private GameTile north, east, south, west, nextOnPath;
+    public GameTile north, east, south, west, nextOnPath;
     private int distance;
     private static Quaternion
         northRotation = Quaternion.Euler(90f, 0f, 0f),

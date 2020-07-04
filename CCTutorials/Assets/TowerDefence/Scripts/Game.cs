@@ -28,6 +28,7 @@ public class Game : MonoBehaviour
     private GameScenario.State activeScenario;
     private int playerHealth;
     private const float pausedTimeScale = 0f;
+    private StructurePlacementManager placementManager = default;
 
     static Game instance;
 
@@ -49,6 +50,7 @@ public class Game : MonoBehaviour
         board.Initialize(boardSize, tileContentFactory);
         board.ShowGrid = true;
         activeScenario = scenario.Begin();
+        placementManager = GetComponent<StructurePlacementManager>();
     }
 
     private void OnEnable()
@@ -58,12 +60,16 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-            HandleTouch();
-        else if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(0))
+        {
+            HandleHold();
+            if(Input.GetMouseButtonUp(0))
+                HandleRelease();
+        }
+        if (Input.GetMouseButtonDown(1))
             HandleAlternativeTouch();
 
-        if(Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             board.ShowPaths = !board.ShowPaths;
         }
@@ -127,33 +133,22 @@ public class Game : MonoBehaviour
         activeScenario = scenario.Begin();
     }
 
-    void HandleAlternativeTouch()
-    {
-        GameTile tile = board.GetTile(TouchRay);
-        if (tile != null)
-            if (Input.GetKey(KeyCode.LeftShift))
-                board.ToggleDestination(tile);
-            else
-                board.ToggleSpawnPoint(tile);
-    }
-
-    void HandleTouch()
+    void HandleHold()
     {
         if(!EventSystem.current.IsPointerOverGameObject())
         {
             GameTile tile = board.GetTile(TouchRay);
-            if (tile != null)
-            {
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    board.ToggleTower(tile, selectedTowerType);
-                }
-                else
-                {
-                    board.ToggleWall(tile);
-                }
-            }
+            placementManager.InitiatePlacement(tile, board);
         }
+    }
+    void HandleRelease()
+    {
+        placementManager.ConfirmPlacement();
+    }
+
+    void HandleAlternativeTouch()
+    {
+        placementManager.CancelPlacement();
     }
 
     public static void SpawnEnemy(EnemyFactory factory, EnemyType type)

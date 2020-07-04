@@ -30,4 +30,10 @@ public class GameTileContent : MonoBehaviour
     {
         originFactory.Reclaim(this);
     }
+
+    public virtual void Adapt(GameTile tile)
+    {
+        //Basic tiles do nothing for now;
+        Debug.LogError("GTC.Adapt");
+    }
 }
