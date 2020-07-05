@@ -19,7 +19,7 @@ public class Game : MonoBehaviour
     [SerializeField, Range(0, 100)]
     private int startingPlayerHealth = 10;
     [SerializeField, Range(1f, 10f)]
-    private float playSpeed = 1f;
+    private float fastTimeScale = 1.5f;
 
     private Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -27,10 +27,13 @@ public class Game : MonoBehaviour
     private GameBehaviorCollection nonEnemies = new GameBehaviorCollection();
     private GameScenario.State activeScenario;
     private int playerHealth;
+    private const float playTimeScale = 1f;
     private const float pausedTimeScale = 0f;
     private StructurePlacementManager placementManager = default;
 
-    static Game instance;
+    public GameSpeedState GameSpeedState { get; private set; }
+
+    public static Game instance;
 
     private void OnValidate()
     {
@@ -51,6 +54,7 @@ public class Game : MonoBehaviour
         board.ShowGrid = true;
         activeScenario = scenario.Begin();
         placementManager = GetComponent<StructurePlacementManager>();
+        SetPlaySpeed(GameSpeedState.Playing);
     }
 
     private void OnEnable()
@@ -85,15 +89,6 @@ public class Game : MonoBehaviour
         }
 
         gameCamera.ApplyInput(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), Input.GetAxis("Rotate"), Input.mouseScrollDelta.y);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Time.timeScale = Time.timeScale > pausedTimeScale ? pausedTimeScale : playSpeed;
-        }
-        else if (Time.timeScale > pausedTimeScale)
-        {
-            Time.timeScale = playSpeed;
-        }
 
         if (playerHealth <= 0 && startingPlayerHealth > 0)
         {
@@ -175,5 +170,28 @@ public class Game : MonoBehaviour
             EditorApplication.ExecuteMenuItem("Edit/Play");
         else
             Application.Quit();
+    }
+
+    public void SetPlaySpeed(GameSpeedState state)
+    {
+        GameSpeedState = state;
+        switch (state)
+        {
+            case GameSpeedState.Paused:
+                {
+                    Time.timeScale = pausedTimeScale;
+                    break;
+                }
+            case GameSpeedState.Playing:
+                {
+                    Time.timeScale = playTimeScale;
+                    break;
+                }
+            case GameSpeedState.Fast:
+                {
+                    Time.timeScale = fastTimeScale;
+                    break;
+                }
+        }
     }
 }

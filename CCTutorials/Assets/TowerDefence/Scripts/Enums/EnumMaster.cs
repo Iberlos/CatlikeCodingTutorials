@@ -1,4 +1,11 @@
-﻿public enum GameTileContentType
+﻿public enum GameSpeedState
+{
+    Paused = 0,
+    Playing,
+    Fast
+}
+
+public enum GameTileContentType
 {
     Empty = 0,
     Destination,
