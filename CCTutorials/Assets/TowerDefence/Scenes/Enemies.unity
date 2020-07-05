@@ -1809,7 +1809,8 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: -1.2385587e-19, y: -1.4989888e-37, z: 2.1146254e-27,
+    w: -3.376305e-20}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2619,7 +2620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameCamera: {fileID: 963194229}
-  boardSize: {x: 81, y: 45}
+  boardSize: {x: 101, y: 101}
   board: {fileID: 1909437580}
   tileContentFactory: {fileID: 11400000, guid: 36378a1b67271a849ad3e3baf1a2ab8a, type: 2}
   warFactory: {fileID: 11400000, guid: a4f60c31a4e175d499800da170e3211f, type: 2}
