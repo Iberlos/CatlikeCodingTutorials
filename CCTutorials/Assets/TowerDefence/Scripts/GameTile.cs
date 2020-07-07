@@ -87,6 +87,7 @@ public class GameTile : MonoBehaviour
 
     public Vector3 ExitPoint { get; private set; }
 
+    [HideInInspector]
     public GameTile north, northEast, east, southEast, south, southWest, west, northWest, nextOnPath;
     private int distance;
     private static Quaternion

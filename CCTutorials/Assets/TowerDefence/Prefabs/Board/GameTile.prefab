@@ -45,6 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 757445021882767521}
+  north: {fileID: 0}
+  northEast: {fileID: 0}
+  east: {fileID: 0}
+  southEast: {fileID: 0}
+  south: {fileID: 0}
+  southWest: {fileID: 0}
+  west: {fileID: 0}
+  northWest: {fileID: 0}
+  nextOnPath: {fileID: 0}
 --- !u!1 &5151946919044336702
 GameObject:
   m_ObjectHideFlags: 0
