@@ -20,6 +20,9 @@ public class Game : MonoBehaviour
     private int startingPlayerHealth = 10;
     [SerializeField, Range(1f, 10f)]
     private float fastTimeScale = 1.5f;
+    [Header("Map Generation")]
+    [SerializeField]
+    private GeneratorParams generatorParameters;
 
     private Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -50,7 +53,7 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         playerHealth = startingPlayerHealth;
-        board.Initialize(boardSize, tileContentFactory);
+        board.Initialize(boardSize, tileContentFactory, ref generatorParameters);
         board.ShowGrid = true;
         activeScenario = scenario.Begin();
         placementManager = GetComponent<StructurePlacementManager>();
@@ -86,6 +89,7 @@ public class Game : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.B))
         {
             BeginNewGame();
+            return;
         }
 
         gameCamera.ApplyInput(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), Input.GetAxis("Rotate"), Input.mouseScrollDelta.y);
@@ -94,6 +98,7 @@ public class Game : MonoBehaviour
         {
             Debug.Log("Defeat!");
             BeginNewGame();
+            return;
         }
 
         if(!activeScenario.Progress() && enemies.IsEmpty)
@@ -101,6 +106,7 @@ public class Game : MonoBehaviour
             Debug.Log("Victory");
             BeginNewGame();
             activeScenario.Progress();
+            return;
         }
 
         enemies.GameUpdate();
@@ -115,7 +121,7 @@ public class Game : MonoBehaviour
         playerHealth = startingPlayerHealth;
         enemies.Clear();
         nonEnemies.Clear();
-        board.Clear();
+        board.GenerateMap(ref generatorParameters);
         activeScenario = scenario.Begin();
     }
 

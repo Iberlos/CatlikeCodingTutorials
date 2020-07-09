@@ -12,8 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3c01f9e1a1b7044a852e7f65e04710, type: 3}
   m_Name: GameTileContentFactory
   m_EditorClassIdentifier: 
-  emptyPrefab: {fileID: 7645911776671821520, guid: 42e308169d11ca44fab300a51c8a4a1f,
+  groundPrefab: {fileID: 7645911776671821520, guid: 42e308169d11ca44fab300a51c8a4a1f,
     type: 3}
+  waterPrefab: {fileID: 7645911776671821520, guid: c654ab960f4b2b14ba9216a844bdd407,
+    type: 3}
+  mountainPrefab: {fileID: 7645911776671821520, guid: f8793ba0076ba774ab75b14e8a27b4d5,
+    type: 3}
+  resourcePrefabs:
+  - {fileID: 7645911776671821520, guid: c861dd1f92bd6bb4d90725daa519c785, type: 3}
+  - {fileID: 7645911776671821520, guid: d6c2a973dc6ccbc48960bb2ad2bb5592, type: 3}
+  - {fileID: 7645911776671821520, guid: 13c40c3fea969ec42bba3872bb232b1a, type: 3}
   wallPrefab: {fileID: 867649293314729089, guid: f42cc62ba6baf744183bc34b26011332,
     type: 3}
   destinationPrefab: {fileID: 5429669758535756956, guid: cb20a5edf815449449bc321c2f7f18c0,

@@ -137,7 +137,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3a0617e1111e34db0a17b8849e0886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 5
+  staticAdaptation: 1
+  tileTypeSet:
+    north_south: {fileID: 0}
+    north_west: {fileID: 0}
+    north_east_west: {fileID: 0}
+    north_east_south_west: {fileID: 0}
+    south_west: {fileID: 0}
+    north_south_southWest_west_northWest: {fileID: 0}
+    north_west_northWest: {fileID: 0}
+    north_northEast_east_south_west_northWest: {fileID: 0}
+    north_northEast_east_south_southWest_west_northWest: {fileID: 0}
+    north_northEast_east_west: {fileID: 0}
+    north_east_west_northWest: {fileID: 0}
+    defaultMesh: {fileID: 0}
+  terrainMeshFilter: {fileID: 0}
   tower: {fileID: 608809412800955270}
   northWall: {fileID: 8794969347868746430}
   northEastWall: {fileID: 7049735636083280989}

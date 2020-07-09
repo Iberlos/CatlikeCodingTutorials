@@ -23,7 +23,7 @@ public class StructurePlacementManager : GameBehavior
             bool placedSomething = false;
             switch (constructionType)
             {
-                case GameTileContentType.Empty:
+                case GameTileContentType.Ground:
                     {
                         placedSomething = board.Demolish(tile);
                         break;

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4111918693796856701}
   - component: {fileID: 5429669758535756956}
   m_Layer: 0
-  m_Name: Destination
+  m_Name: Capital
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1dabcf2fcae11b45be64c30bd63f56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 4
 --- !u!1001 &3074058743430663067
 PrefabInstance:
   m_ObjectHideFlags: 0

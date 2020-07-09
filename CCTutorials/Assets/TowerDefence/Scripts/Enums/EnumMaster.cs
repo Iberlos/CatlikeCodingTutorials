@@ -7,12 +7,30 @@
 
 public enum GameTileContentType
 {
-    Empty = 0,
+    Ground = 0,
+    Water,
+    Mountain,
+    Resource,
     Destination,
     Wall,
     SpawnPoint,
     Tower,
     Last
+}
+
+public enum ResourceType
+{
+    Forest = 0,
+    Metal,
+    Crystal,
+    Last
+}
+
+public enum DestinationType
+{
+    Capital = 0,
+    Farm,
+    Outpost
 }
 
 public enum TowerType
