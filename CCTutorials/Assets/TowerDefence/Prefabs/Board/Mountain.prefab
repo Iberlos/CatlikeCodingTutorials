@@ -45,6 +45,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
+  staticAdaptation: 0
+  tileTypeSet:
+    north_south: {fileID: -1432821481360142996, guid: e34ff4cc637b3214d88442212c89066c,
+      type: 3}
+    north_west: {fileID: -6326343345872429279, guid: 5a748c8bd7dc8374aaef933405ce6a5a,
+      type: 3}
+    north_east_west: {fileID: 8454810897602600944, guid: a27705b89f7763446aa63da7e3d365a0,
+      type: 3}
+    north_east_south_west: {fileID: -1098106582263255007, guid: 6751735efb8d4da4d87d2c22d4ac9d31,
+      type: 3}
+    south_west: {fileID: -6081412563705408406, guid: 21bc451646b0e254ba0d83bb857c1194,
+      type: 3}
+    north_south_southWest_west_northWest: {fileID: -8917547599780689886, guid: 934be7b3e610db34fbb4fec3490591e3,
+      type: 3}
+    north_west_northWest: {fileID: 5677734404392693540, guid: a79ad75af2cd8154fa0e8e3d57ed5dcd,
+      type: 3}
+    north_northEast_east_south_west_northWest: {fileID: -4496702500537037051, guid: e5c546d60112f3741b129cd67b1d49c6,
+      type: 3}
+    north_northEast_east_south_southWest_west_northWest: {fileID: 1544573202760286906,
+      guid: e04be865a43deec4e93c438c4197d6cc, type: 3}
+    north_northEast_east_west: {fileID: -8190541056918447695, guid: 85e1bad405ebb6843859c811e16aad82,
+      type: 3}
+    north_east_west_northWest: {fileID: 7566070509352137874, guid: 55b26e128e5edfa48ba470f048156b6d,
+      type: 3}
+    defaultMesh: {fileID: -8040866168836439959, guid: e00f77c52f93ade438bf0651e4ef1806,
+      type: 3}
+  terrainMeshFilter: {fileID: 5420216111804470841}
 --- !u!1001 &8293884109493815061
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,6 +144,12 @@ PrefabInstance:
 --- !u!4 &3919116190147636239 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: e00f77c52f93ade438bf0651e4ef1806,
+    type: 3}
+  m_PrefabInstance: {fileID: 8293884109493815061}
+  m_PrefabAsset: {fileID: 0}
+--- !u!33 &5420216111804470841 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5178661895559278292, guid: e00f77c52f93ade438bf0651e4ef1806,
     type: 3}
   m_PrefabInstance: {fileID: 8293884109493815061}
   m_PrefabAsset: {fileID: 0}

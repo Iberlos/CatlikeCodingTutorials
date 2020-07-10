@@ -43,7 +43,7 @@ public class GameTileContent : MonoBehaviour
         }
     }
 
-    public bool BlocksPath => Type == GameTileContentType.Wall || Type == GameTileContentType.Tower || Type == GameTileContentType.Water;
+    public bool BlocksPath => Type == GameTileContentType.Wall || Type == GameTileContentType.Tower || Type == GameTileContentType.Water || Type == GameTileContentType.Mountain;
 
     private GameTileContentFactory originFactory;
 
@@ -201,7 +201,7 @@ public class GameTileContent : MonoBehaviour
                     {
                         if(i == 3)
                         {
-                            Debug.LogError("Unsuported flag combination " + ((flags & (int)cartographicDirection.North) == (int)cartographicDirection.North ? "North_" : "") + ((flags & (int)cartographicDirection.NorthEast) == (int)cartographicDirection.NorthEast ? "NorthEast_" : "") + ((flags & (int)cartographicDirection.East) == (int)cartographicDirection.East ? "East_" : "") + ((flags & (int)cartographicDirection.SouthEast) == (int)cartographicDirection.SouthEast ? "SouthEast_" : "") + ((flags & (int)cartographicDirection.South) == (int)cartographicDirection.South ? "South_" : "") + ((flags & (int)cartographicDirection.SouthWest) == (int)cartographicDirection.SouthWest ? "SouthWest_" : "") + ((flags & (int)cartographicDirection.West) == (int)cartographicDirection.West ? "West_" : "") + ((flags & (int)cartographicDirection.NorthWest) == (int)cartographicDirection.NorthWest ? "NorthWest_" : ""), this.gameObject);
+                            Debug.LogWarning("Unsuported flag combination " + ((flags & (int)cartographicDirection.North) == (int)cartographicDirection.North ? "North_" : "") + ((flags & (int)cartographicDirection.NorthEast) == (int)cartographicDirection.NorthEast ? "NorthEast_" : "") + ((flags & (int)cartographicDirection.East) == (int)cartographicDirection.East ? "East_" : "") + ((flags & (int)cartographicDirection.SouthEast) == (int)cartographicDirection.SouthEast ? "SouthEast_" : "") + ((flags & (int)cartographicDirection.South) == (int)cartographicDirection.South ? "South_" : "") + ((flags & (int)cartographicDirection.SouthWest) == (int)cartographicDirection.SouthWest ? "SouthWest_" : "") + ((flags & (int)cartographicDirection.West) == (int)cartographicDirection.West ? "West_" : "") + ((flags & (int)cartographicDirection.NorthWest) == (int)cartographicDirection.NorthWest ? "NorthWest_" : ""), this.gameObject);
                             terrainMeshFilter.mesh = tileTypeSet.defaultMesh;
                         }
                         break;

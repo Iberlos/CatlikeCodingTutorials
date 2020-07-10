@@ -105,7 +105,7 @@ public class GameBoard : MonoBehaviour
         Clear();
         MapGenerator generator = new MapGenerator();
         generator.Initialize(ref generatorParams);
-        Populate(generator.GenerateWater(size.x, size.y));
+        Populate(generator.GenerateMap(size.x, size.y));
         return generatorParams;
     }
 
@@ -119,11 +119,18 @@ public class GameBoard : MonoBehaviour
         updatingContent.Clear();
     }
 
-    private void Populate(GameTileContentType[] typeMap)
+    private void Populate(MapData[] typeMap)
     {
         for(int i =0; i< tiles.Length; i++)
         {
-            tiles[i].Content = contentFactory.Get(typeMap[i]);
+            if(typeMap[i].tileType == GameTileContentType.Resource)
+            {
+                tiles[i].Content = contentFactory.Get((ResourceType)typeMap[i].variation);
+            }
+            else
+            {
+                tiles[i].Content = contentFactory.Get(typeMap[i].tileType);
+            }
         }
         int destinationTile = tiles.Length / 2;
         PlaceDestination(tiles[destinationTile]);

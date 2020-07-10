@@ -1809,7 +1809,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0.0000008142067, y: 0, z: 6337696, w: 2.1249e-41}
+  m_BoundingSphereOverride: {x: 0, y: 2.3509887e-38, z: -2.3059837e+18, w: 2.0679515e-25}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2630,8 +2630,15 @@ MonoBehaviour:
     useRanomSeed: 1
     seed: Luis
     groundFilPercent: 30
+    mountainFilPercent: 25
+    resourceFilPercent: 0
     iterations: 2
+    mountainIterations: 2
+    resourceIterations: 3
     waterCountThreshold: 2
+    mountainCountThreshold: 2
+    resourceCountThreshold: 2
+    moytainDistanceToRivers: 3
     useMapBacklog: 1
 --- !u!4 &1202016423
 Transform:
