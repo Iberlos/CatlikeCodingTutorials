@@ -31,7 +31,7 @@ public class GameTileContent : MonoBehaviour
     [SerializeField]
     private TileTypeSet tileTypeSet;
     [SerializeField]
-    private MeshFilter terrainMeshFilter = default;
+    protected MeshFilter terrainMeshFilter = default;
 
     public GameTileContentFactory OriginFactory
     {
@@ -63,21 +63,21 @@ public class GameTileContent : MonoBehaviour
             return;
 
         int flags = 0;
-        if (tile.north != null && tile.north.Content.type == type)
+        if (tile.north != null && tile.north.Content.type == type || (tile.north != null && type == GameTileContentType.Water && tile.north.Content.type == GameTileContentType.Ground && ((Ground)tile.north.Content).groundType == GroundType.Bridge))
             flags |= (int)cartographicDirection.North;
-        if (tile.northEast != null && tile.northEast.Content.type == type)
+        if (tile.northEast != null && tile.northEast.Content.type == type || (tile.northEast != null && type == GameTileContentType.Water && tile.northEast.Content.type == GameTileContentType.Ground && ((Ground)tile.northEast.Content).groundType == GroundType.Bridge))
             flags |= (int)cartographicDirection.NorthEast;
-        if (tile.east != null && tile.east.Content.type == type)
+        if (tile.east != null && tile.east.Content.type == type || (tile.east != null && type == GameTileContentType.Water && tile.east.Content.type == GameTileContentType.Ground && ((Ground)tile.east.Content).groundType == GroundType.Bridge))
             flags |= (int)cartographicDirection.East;
-        if (tile.southEast != null && tile.southEast.Content.type == type)
+        if (tile.southEast != null && tile.southEast.Content.type == type || (tile.southEast != null && type == GameTileContentType.Water && tile.southEast.Content.type == GameTileContentType.Ground && ((Ground)tile.southEast.Content).groundType == GroundType.Bridge))
             flags |= (int)cartographicDirection.SouthEast;
-        if (tile.south != null && tile.south.Content.type == type)
+        if (tile.south != null && tile.south.Content.type == type || (tile.south != null && type == GameTileContentType.Water && tile.south.Content.type == GameTileContentType.Ground && ((Ground)tile.south.Content).groundType == GroundType.Bridge))
             flags |= (int)cartographicDirection.South;
-        if (tile.southWest != null && tile.southWest.Content.type == type)
+        if (tile.southWest != null && tile.southWest.Content.type == type || (tile.southWest != null && type == GameTileContentType.Water && tile.southWest.Content.type == GameTileContentType.Ground && ((Ground)tile.southWest.Content).groundType == GroundType.Bridge))
             flags |= (int)cartographicDirection.SouthWest;
-        if (tile.west != null && tile.west.Content.type == type)
+        if (tile.west != null && tile.west.Content.type == type || (tile.west != null && type == GameTileContentType.Water && tile.west.Content.type == GameTileContentType.Ground && ((Ground)tile.west.Content).groundType == GroundType.Bridge))
             flags |= (int)cartographicDirection.West;
-        if (tile.northWest != null && tile.northWest.Content.type == type)
+        if (tile.northWest != null && tile.northWest.Content.type == type || (tile.northWest != null && type == GameTileContentType.Water && tile.northWest.Content.type == GameTileContentType.Ground && ((Ground)tile.northWest.Content).groundType == GroundType.Bridge))
             flags |= (int)cartographicDirection.NorthWest;
 
 

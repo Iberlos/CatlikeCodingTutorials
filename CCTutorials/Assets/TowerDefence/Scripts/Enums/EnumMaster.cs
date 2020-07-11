@@ -18,6 +18,12 @@ public enum GameTileContentType
     Last
 }
 
+public enum GroundType
+{
+    Normal = 0,
+    Bridge
+}
+
 public enum ResourceType
 {
     Forest = 0,

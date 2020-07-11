@@ -5,7 +5,7 @@
 public class GameTileContentFactory : GameObjectFactory
 {
     [SerializeField]
-    private GameTileContent groundPrefab = default;
+    private Ground[] groundPrefabs = default;
     [SerializeField]
     private GameTileContent waterPrefab = default;
     [SerializeField]
@@ -25,7 +25,7 @@ public class GameTileContentFactory : GameObjectFactory
     {
         switch (type)
         {
-            case GameTileContentType.Ground: return Get(groundPrefab);
+            case GameTileContentType.Ground: return Get(groundPrefabs[0]);
             case GameTileContentType.Water: return Get(waterPrefab);
             case GameTileContentType.Mountain: return Get(mountainPrefab);
             case GameTileContentType.Wall: return Get(wallPrefab);
@@ -41,6 +41,15 @@ public class GameTileContentFactory : GameObjectFactory
         T instance = CreateGameObjectInstance(prefab);
         instance.OriginFactory = this;
         return instance;
+    }
+
+    public Ground Get(GroundType type)
+    {
+        Debug.Assert((int)type < towerPrefabs.Length, "Unsupported tower type!");
+        Ground prefab = groundPrefabs[(int)type];
+        Debug.Assert(prefab != null, "Prefab at indext " + (int)type + " is not set!");
+        Debug.Assert(type == prefab.groundType, "Tower prefab at wrong index!");
+        return Get(prefab);
     }
 
     public GameTileContent Get(ResourceType type)

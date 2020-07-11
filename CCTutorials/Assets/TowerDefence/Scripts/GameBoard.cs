@@ -127,6 +127,10 @@ public class GameBoard : MonoBehaviour
             {
                 tiles[i].Content = contentFactory.Get((ResourceType)typeMap[i].variation);
             }
+            else if(typeMap[i].tileType == GameTileContentType.Ground)
+            {
+                tiles[i].Content = contentFactory.Get((GroundType)typeMap[i].variation);
+            }
             else
             {
                 tiles[i].Content = contentFactory.Get(typeMap[i].tileType);

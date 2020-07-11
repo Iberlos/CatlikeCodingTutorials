@@ -11,18 +11,26 @@ public struct GeneratorParams
     public string seed;
     public int groundFilPercent;
     public int mountainFilPercent;
-    public int resourceFilPercent;
+    public int forestFilPercent;
+    public int metalFillPercent;
+    public int crystalFillPercent;
     [Header("Smooth Settings")]
     [Range(0, 10)]
     public int iterations;
     [Range(0, 10)]
     public int mountainIterations;
     [Range(0, 10)]
-    public int resourceIterations;
+    public int forestIterations;
+    [Range(0, 10)]
+    public int metalIterations;
+    [Range(0, 10)]
+    public int crystalIterations;
     public int waterCountThreshold;
     public int mountainCountThreshold;
-    public int resourceCountThreshold;
-    public int moytainDistanceToRivers;
+    public int forestCountThreshold;
+    public int metalCountThreshold;
+    public int crystalCountThreshold;
+    public int montainDistanceToRivers;
 
     public bool useMapBacklog;
 }
@@ -68,15 +76,25 @@ public class MapGenerator
         RandomFilMapWithMountains();
         SmoothMountains(generatorParameters.mountainIterations);
         if (generatorParameters.useMapBacklog) SaveBacklog();
-        RandomFillMapWithResources();
-        SmoothResources(generatorParameters.resourceIterations);
+        RandomFillMapWithForests();
+        SmoothForests(generatorParameters.forestIterations);
+        if (generatorParameters.useMapBacklog) SaveBacklog();
+        RandomFillMapWithMetal();
+        SmoothMetal(generatorParameters.metalIterations);
+        if (generatorParameters.useMapBacklog) SaveBacklog();
+        RandomFillMapWithCrystals();
 
         MapData[,] typeMap = new MapData[width, width];
         for (int x = 0; x < map.GetLength(0); x++)
         {
             for (int y = 0; y < map.GetLength(1); y++)
             {
-                if (map[x, y] == 1)
+                if(map[x,y] == 11)
+                {
+                    typeMap[x, y].tileType = GameTileContentType.Ground;
+                    typeMap[x, y].variation = 1; //Marks a bridge
+                }
+                else if (map[x, y] == 1)
                 {
                     typeMap[x,y].tileType = GameTileContentType.Ground;
                 }
@@ -88,22 +106,23 @@ public class MapGenerator
                 {
                     typeMap[x, y].tileType = GameTileContentType.Mountain;
                 }
-                else if (map[x, y] == 3)
+                else if (map[x, y] >= 3)
                 {
                     typeMap[x, y].tileType = GameTileContentType.Resource;
+                    typeMap[x, y].variation = map[x, y] -3;
                 }
             }
         }
-        for (int x = 0; x < typeMap.GetLength(0); x++)
-        {
-            for (int y = 0; y < typeMap.GetLength(1); y++)
-            {
-                if(typeMap[x,y].tileType == GameTileContentType.Resource)
-                {
-                    SetVariation(x,y,typeMap);
-                }
-            }
-        }
+        //for (int x = 0; x < typeMap.GetLength(0); x++)
+        //{
+        //    for (int y = 0; y < typeMap.GetLength(1); y++)
+        //    {
+        //        if(typeMap[x,y].tileType == GameTileContentType.Resource)
+        //        {
+        //            SetVariation(x,y,typeMap);
+        //        }
+        //    }
+        //}
 
         MapData[,] borderedMap = new MapData[width + borderSize * 2, height + borderSize * 2];
         for (int x = 0; x < borderedMap.GetLength(0); x++)
@@ -342,6 +361,15 @@ public class MapGenerator
         Lake.ConectLakes(a_lakeA, a_LakeB);
         List<Coord> line = GetLine(a_tileA, a_tileB);
         bool bridgeableTilePresent = false;
+        for (int i = 0; i < line.Count; i++) //find out if this line was already created.
+        {
+            if (i > 0 && i < line.Count - 2)
+            {
+                int tileX = line[i].tileX;
+                int tileY = line[i].tileY;
+                if (map[tileX, tileY] == 0 || map[tileX, tileY] == 11) return;
+            }
+        }
         for (int i = 0; i < line.Count; i++) //find out if there is a straight line of three tiles in this line
         {
             if(i > 0 && i < line.Count-2)
@@ -351,6 +379,8 @@ public class MapGenerator
                 if (line[i - 1].tileX == tileX && line[i + 1].tileX == tileX || line[i - 1].tileY == tileY && line[i + 1].tileY == tileY)
                 {
                     bridgeableTilePresent = true;
+                    map[tileX, tileY] = 11; //become a bridge
+                    break;
                 }
             }
         }
@@ -358,21 +388,27 @@ public class MapGenerator
         {
             int tileX = line[i].tileX;
             int tileY = line[i].tileY;
-            map[tileX, tileY] = 0; //become a river
-            if(i > 0 && (line[i-1].tileX != tileX || line[i-1].tileY != tileY)) //if your are not the first index and the previous tile was in a diagonal direction
+            if (map[tileX, tileY]!=11)
+                map[tileX, tileY] = 0; //become a river
+            if (i > 0 && (line[i-1].tileX != tileX || line[i-1].tileY != tileY)) //if your are not the first index and the previous tile was in a diagonal direction
             {
-                int x = line[i].tileX;
-                int y = line[i - 1].tileY;
-                map[x, y] = 0; //place a river tile to make the corner
+                int x = line[i - 1].tileX;
+                int y = line[i].tileY;
+                if (map[x, y] != 11)
+                    map[x, y] = 0; //place a river tile to make the corner
             }
-            if (i > 0 && i < line.Count - 2) //if you are not the first or the last
-            {
-                if (!bridgeableTilePresent && i < line.Count - 2 && line[i + 1].tileX != tileX || line[i + 1].tileY != tileY) //if there are no brigeable tiles yet, you are not the last in line and the next tile is in a diagonal
-                {
-                    line.Insert(i + 1, new Coord(line[i].tileX, line[i + 1].tileY)); //insert a tile betwen you to form a straight line of three tiles
-                    bridgeableTilePresent = true;
-                }
-            }
+            //if(!bridgeableTilePresent)
+            //{
+            //    if (i > 0 && i < line.Count - 2) //if you are not the first or the last
+            //    {
+            //        if (i < line.Count - 2 && line[i + 1].tileX != tileX || line[i + 1].tileY != tileY) //if there are no brigeable tiles yet, you are not the last in line and the next tile is in a diagonal
+            //        {
+            //            line[i+1] = new Coord(line[i+1].tileX, line[i].tileY); //override a tile betwen you to form a straight line of three tiles
+            //            bridgeableTilePresent = true;
+            //            map[tileX, tileY] = 11;//become a bridge
+            //        }
+            //    }
+            //}
         }
     }
 
@@ -525,28 +561,31 @@ public class MapGenerator
         {
             for (int y = 0; y < height; y++)
             {
-                int neighbourWallTiles = CountSurroundingWaterTiles(x, y);
+                if(map[x,y] == 1 || map[x,y] == 0)
+                {
+                    int neighbourWallTiles = CountSurroundingWaterTiles(x, y);
 
-                if (neighbourWallTiles > generatorParameters.waterCountThreshold)
-                {
-                    if (generatorParameters.useMapBacklog)
+                    if (neighbourWallTiles > generatorParameters.waterCountThreshold)
                     {
-                        mapBackLog[x, y] = 1;
+                        if (generatorParameters.useMapBacklog)
+                        {
+                            mapBackLog[x, y] = 1;
+                        }
+                        else
+                        {
+                            map[x, y] = 1;
+                        }
                     }
-                    else
+                    else if (neighbourWallTiles < generatorParameters.waterCountThreshold)
                     {
-                        map[x, y] = 1;
-                    }
-                }
-                else if (neighbourWallTiles < generatorParameters.waterCountThreshold)
-                {
-                    if (generatorParameters.useMapBacklog)
-                    {
-                        mapBackLog[x, y] = 0;
-                    }
-                    else
-                    {
-                        map[x, y] = 0;
+                        if (generatorParameters.useMapBacklog)
+                        {
+                            mapBackLog[x, y] = 0;
+                        }
+                        else
+                        {
+                            map[x, y] = 0;
+                        }
                     }
                 }
             }
@@ -682,7 +721,7 @@ public class MapGenerator
         {
             for (int y = 0; y < height; y++)
             {
-                if (map[x, y] != 0)
+                if (map[x, y] == 1 || map[x,y] == 2)
                 {
                     int neighbourMountainTiles = CountSurroundingMountainTiles(x, y);
 
@@ -721,9 +760,9 @@ public class MapGenerator
 
     int CountSurroundingMountainTiles(int gridX, int gridY)
     {
-        for (int neighborX = gridX - generatorParameters.moytainDistanceToRivers; neighborX <= gridX + generatorParameters.moytainDistanceToRivers; neighborX++)
+        for (int neighborX = gridX - generatorParameters.montainDistanceToRivers; neighborX <= gridX + generatorParameters.montainDistanceToRivers; neighborX++)
         {
-            for (int neighborY = gridY - generatorParameters.moytainDistanceToRivers; neighborY <= gridY + generatorParameters.moytainDistanceToRivers; neighborY++)
+            for (int neighborY = gridY - generatorParameters.montainDistanceToRivers; neighborY <= gridY + generatorParameters.montainDistanceToRivers; neighborY++)
             {
                 if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
                 {
@@ -761,7 +800,7 @@ public class MapGenerator
         }
     }
 
-    private void RandomFillMapWithResources()
+    private void RandomFillMapWithForests()
     {
         for (int x = 0; x < width; x++)
         {
@@ -769,13 +808,13 @@ public class MapGenerator
             {
                 if (map[x, y] == 1)
                 {
-                    map[x, y] = (pseudoRandom.Next(0, 100) < (int)(generatorParameters.mountainFilPercent * (float)x / width)) ? 3 : 1;
+                    map[x, y] = (pseudoRandom.Next(0, 100) < (int)(generatorParameters.forestFilPercent * (float)x / width)) ? 3 : 1;
                 }
             }
         }
     }
 
-    void SmoothResources(int iterations)
+    void SmoothForests(int iterations)
     {
         if (iterations == 0) return;
 
@@ -787,9 +826,9 @@ public class MapGenerator
                 if (map[x, y] == 1 || map[x, y] == 3)
                 {
 
-                    int neighbourMountainTiles = CountSurroundingResources(x, y);
+                    int neighbourMountainTiles = CountSurroundingForestsAndWater(x, y);
 
-                    if (neighbourMountainTiles > generatorParameters.resourceCountThreshold)
+                    if (neighbourMountainTiles > generatorParameters.forestCountThreshold)
                     {
                         if (generatorParameters.useMapBacklog)
                         {
@@ -800,7 +839,7 @@ public class MapGenerator
                             map[x, y] = 3;
                         }
                     }
-                    else if (neighbourMountainTiles < generatorParameters.resourceCountThreshold)
+                    else if (neighbourMountainTiles < generatorParameters.forestCountThreshold)
                     {
                         if (generatorParameters.useMapBacklog)
                         {
@@ -821,10 +860,10 @@ public class MapGenerator
         {
             ApplyBacklog();
         }
-        SmoothResources(iterations);
+        SmoothForests(iterations);
     }
 
-    private int CountSurroundingResources(int gridX, int gridY)
+    private int CountSurroundingForestsAndWater(int gridX, int gridY)
     {
         int wallCount = 0;
         for (int neighborX = gridX - 1; neighborX <= gridX + 1; neighborX++)
@@ -835,7 +874,7 @@ public class MapGenerator
                 {
                     if (neighborX != gridX || neighborY != gridY)
                     {
-                        if (map[neighborX, neighborY] == 0 || /*map[neighborX, neighborY] == 2 ||*/ map[neighborX, neighborY] == 3)
+                        if (map[neighborX, neighborY] == 0 || map[neighborX, neighborY] == 3)
                             wallCount += 1;
                     }
                 }
@@ -844,42 +883,139 @@ public class MapGenerator
         return wallCount;
     }
 
-    private void SetVariation(int gridX, int gridY, MapData[,] typeMap)
+    private void RandomFillMapWithMetal()
     {
-        for (int neighborX = gridX - 1; neighborX <= gridX + 1; neighborX++)
+        for (int x = 0; x < width; x++)
         {
-            for (int neighborY = gridY - 1; neighborY <= gridY + 1; neighborY++)
+            for (int y = 0; y < height; y++)
             {
-                if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
+                if (map[x, y] == 1)
                 {
-                    if (typeMap[neighborX, neighborY].tileType == GameTileContentType.Water)
-                    {
-                        typeMap[gridX, gridY].variation = (int)ResourceType.Forest;
-                        return;
-                    }
-                    if (typeMap[neighborX, neighborY].tileType == GameTileContentType.Mountain)
-                    {
-                        typeMap[gridX, gridY].variation = (int)ResourceType.Metal;
-                        return;
-                    }
+                    map[x, y] = (pseudoRandom.Next(0, 100) < (int)(generatorParameters.metalFillPercent * (float)x / width)) ? 4 : 1;
                 }
             }
         }
-        for (int neighborX = gridX - 1; neighborX <= gridX + 1; neighborX++)
-        {
-            for (int neighborY = gridY - 1; neighborY <= gridY + 1; neighborY++)
-            {
-                if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
-                {
-                    if (neighborX == gridX && neighborY == gridY) continue;
-                    if (typeMap[neighborX, neighborY].tileType == GameTileContentType.Resource)
-                    {
-                        typeMap[gridX, gridY].variation = typeMap[neighborX, neighborY].variation;
-                        return;
-                    }
-                }
-            }
-        }
-        typeMap[gridX, gridY].variation = (int)ResourceType.Crystal;
     }
+
+    void SmoothMetal(int iterations)
+    {
+        if (iterations == 0) return;
+
+        iterations--;
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (map[x, y] == 1 || map[x, y] == 4)
+                {
+
+                    int neighbourMountainTiles = CountSurroundingMetalsAndMountains(x, y);
+
+                    if (neighbourMountainTiles > generatorParameters.metalCountThreshold)
+                    {
+                        if (generatorParameters.useMapBacklog)
+                        {
+                            mapBackLog[x, y] = 4;
+                        }
+                        else
+                        {
+                            map[x, y] = 4;
+                        }
+                    }
+                    else if (neighbourMountainTiles < generatorParameters.metalCountThreshold)
+                    {
+                        if (generatorParameters.useMapBacklog)
+                        {
+                            mapBackLog[x, y] = 1;
+                        }
+                        else
+                        {
+                            map[x, y] = 1;
+                        }
+                    }
+
+
+                }
+            }
+        }
+
+        if (generatorParameters.useMapBacklog)
+        {
+            ApplyBacklog();
+        }
+        SmoothForests(iterations);
+    }
+
+    private int CountSurroundingMetalsAndMountains(int gridX, int gridY)
+    {
+        int wallCount = 0;
+        for (int neighborX = gridX - 1; neighborX <= gridX + 1; neighborX++)
+        {
+            for (int neighborY = gridY - 1; neighborY <= gridY + 1; neighborY++)
+            {
+                if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
+                {
+                    if (neighborX != gridX || neighborY != gridY)
+                    {
+                        if (map[neighborX, neighborY] == 2 || map[neighborX, neighborY] == 4)
+                            wallCount += 1;
+                    }
+                }
+            }
+        }
+        return wallCount;
+    }
+
+    private void RandomFillMapWithCrystals()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (map[x, y] == 1)
+                {
+                    map[x, y] = (pseudoRandom.Next(0, 100) < (int)(generatorParameters.crystalFillPercent * (float)x / width)) ? 5 : 1;
+                }
+            }
+        }
+    }
+
+    //private void SetVariation(int gridX, int gridY, MapData[,] typeMap)
+    //{
+    //    for (int neighborX = gridX - 1; neighborX <= gridX + 1; neighborX++)
+    //    {
+    //        for (int neighborY = gridY - 1; neighborY <= gridY + 1; neighborY++)
+    //        {
+    //            if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
+    //            {
+    //                if (typeMap[neighborX, neighborY].tileType == GameTileContentType.Water)
+    //                {
+    //                    typeMap[gridX, gridY].variation = (int)ResourceType.Forest;
+    //                    return;
+    //                }
+    //                if (typeMap[neighborX, neighborY].tileType == GameTileContentType.Mountain)
+    //                {
+    //                    typeMap[gridX, gridY].variation = (int)ResourceType.Metal;
+    //                    return;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    for (int neighborX = gridX - 1; neighborX <= gridX + 1; neighborX++)
+    //    {
+    //        for (int neighborY = gridY - 1; neighborY <= gridY + 1; neighborY++)
+    //        {
+    //            if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
+    //            {
+    //                if (neighborX == gridX && neighborY == gridY) continue;
+    //                if (typeMap[neighborX, neighborY].tileType == GameTileContentType.Resource)
+    //                {
+    //                    typeMap[gridX, gridY].variation = typeMap[neighborX, neighborY].variation;
+    //                    return;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    typeMap[gridX, gridY].variation = (int)ResourceType.Crystal;
+    //}
 }
