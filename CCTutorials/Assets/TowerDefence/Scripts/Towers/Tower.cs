@@ -7,6 +7,8 @@ public abstract class Tower : GameTileContent
 
     public abstract TowerType TowerType { get; }
 
+    public override int Variation => (int)TowerType;
+
     protected bool AcquireTarget(out TargetPoint target)
     {
         if(TargetPoint.FillBuffer(transform.localPosition, targetingRange))

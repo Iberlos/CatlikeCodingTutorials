@@ -15,20 +15,22 @@ MonoBehaviour:
   groundPrefabs:
   - {fileID: 7230138630545441710, guid: 42e308169d11ca44fab300a51c8a4a1f, type: 3}
   - {fileID: 2669986003681952887, guid: 78481d9d92ae38c4bbd3dfb89d63e9a5, type: 3}
-  waterPrefab: {fileID: 7645911776671821520, guid: c654ab960f4b2b14ba9216a844bdd407,
-    type: 3}
-  mountainPrefab: {fileID: 7645911776671821520, guid: f8793ba0076ba774ab75b14e8a27b4d5,
-    type: 3}
+  waterPrefabs:
+  - {fileID: 7645911776671821520, guid: c654ab960f4b2b14ba9216a844bdd407, type: 3}
+  mountainPrefabs:
+  - {fileID: 7645911776671821520, guid: f8793ba0076ba774ab75b14e8a27b4d5, type: 3}
   resourcePrefabs:
-  - {fileID: 7645911776671821520, guid: c861dd1f92bd6bb4d90725daa519c785, type: 3}
-  - {fileID: 7645911776671821520, guid: d6c2a973dc6ccbc48960bb2ad2bb5592, type: 3}
-  - {fileID: 7645911776671821520, guid: 13c40c3fea969ec42bba3872bb232b1a, type: 3}
-  wallPrefab: {fileID: 867649293314729089, guid: f42cc62ba6baf744183bc34b26011332,
-    type: 3}
-  destinationPrefab: {fileID: 5429669758535756956, guid: cb20a5edf815449449bc321c2f7f18c0,
-    type: 3}
-  spawnPointPrefab: {fileID: 5429669758535756956, guid: 912bc5096481a6b45b79ebeb67cec2e3,
-    type: 3}
+  - {fileID: 8686942633781192931, guid: c861dd1f92bd6bb4d90725daa519c785, type: 3}
+  - {fileID: -506544906148844322, guid: d6c2a973dc6ccbc48960bb2ad2bb5592, type: 3}
+  - {fileID: -8451055716786628652, guid: 13c40c3fea969ec42bba3872bb232b1a, type: 3}
+  wallPrefabs:
+  - {fileID: 867649293314729089, guid: f42cc62ba6baf744183bc34b26011332, type: 3}
+  destinationPrefabs:
+  - {fileID: 5429669758535756956, guid: cb20a5edf815449449bc321c2f7f18c0, type: 3}
+  - {fileID: 5429669758535756956, guid: e68442bed2d01f74db7de06f055d7b9c, type: 3}
+  - {fileID: 5429669758535756956, guid: 24566773e5742324b8264d083bd78dab, type: 3}
+  spawnPointPrefabs:
+  - {fileID: 5429669758535756956, guid: 912bc5096481a6b45b79ebeb67cec2e3, type: 3}
   towerPrefabs:
   - {fileID: 5193531897315319045, guid: 3c77916fbe4fc4b42b40710bfb37b4dd, type: 3}
   - {fileID: 4461548434860791542, guid: da077f7e14f56b543bb02e7ad22c150f, type: 3}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3891356064776044659}
-  - component: {fileID: 7645911776671821520}
+  - component: {fileID: -8451055716786628652}
   m_Layer: 0
   m_Name: MagicDeposit
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7645911776671821520
+--- !u!114 &-8451055716786628652
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,10 +41,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 6872748080726548902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1dabcf2fcae11b45be64c30bd63f56d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b2108c6ef2ceaa4cb84ccbf7bb8d898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
+  staticAdaptation: 0
+  tileTypeSet:
+    north_south: {fileID: 0}
+    north_west: {fileID: 0}
+    north_east_west: {fileID: 0}
+    north_east_south_west: {fileID: 0}
+    south_west: {fileID: 0}
+    north_south_southWest_west_northWest: {fileID: 0}
+    north_west_northWest: {fileID: 0}
+    north_northEast_east_south_west_northWest: {fileID: 0}
+    north_northEast_east_south_southWest_west_northWest: {fileID: 0}
+    north_northEast_east_west: {fileID: 0}
+    north_east_west_northWest: {fileID: 0}
+    defaultMesh: {fileID: 0}
+  terrainMeshFilter: {fileID: 0}
+  resourceType: 2
 --- !u!1001 &259522535438623568
 PrefabInstance:
   m_ObjectHideFlags: 0

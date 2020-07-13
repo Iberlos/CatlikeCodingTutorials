@@ -33,6 +33,8 @@ public class GameTileContent : MonoBehaviour
     [SerializeField]
     protected MeshFilter terrainMeshFilter = default;
 
+    public virtual int Variation { get => 0; }
+
     public GameTileContentFactory OriginFactory
     {
         get => originFactory;

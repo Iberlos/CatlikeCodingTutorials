@@ -7,6 +7,8 @@ public class Ground : GameTileContent
     [SerializeField]
     public GroundType groundType = default;
 
+    public override int Variation => (int)groundType;
+
     public override void Adapt(GameTile tile)
     {
         if(groundType == GroundType.Bridge)

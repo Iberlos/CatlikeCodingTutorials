@@ -113,7 +113,7 @@ public class GameBoard : MonoBehaviour
     {
         foreach(GameTile tile in tiles)
         {
-            tile.Content = contentFactory.Get(GameTileContentType.Ground);
+            tile.Content = contentFactory.Get<Ground>(GameTileContentType.Ground);
         }
         spawnPoints.Clear();
         updatingContent.Clear();
@@ -125,15 +125,15 @@ public class GameBoard : MonoBehaviour
         {
             if(typeMap[i].tileType == GameTileContentType.Resource)
             {
-                tiles[i].Content = contentFactory.Get((ResourceType)typeMap[i].variation);
+                tiles[i].Content = contentFactory.Get<Resource>(GameTileContentType.Resource, typeMap[i].variation); //probably needs to be changed to be specifically of type resource
             }
             else if(typeMap[i].tileType == GameTileContentType.Ground)
             {
-                tiles[i].Content = contentFactory.Get((GroundType)typeMap[i].variation);
+                tiles[i].Content = contentFactory.Get<Ground>(GameTileContentType.Ground,typeMap[i].variation);
             }
             else
             {
-                tiles[i].Content = contentFactory.Get(typeMap[i].tileType);
+                tiles[i].Content = contentFactory.Get<GameTileContent>(typeMap[i].tileType);
             }
         }
         int destinationTile = tiles.Length / 2;
@@ -240,10 +240,10 @@ public class GameBoard : MonoBehaviour
             {
                 updatingContent.Remove(tile.Content);
             }
-            tile.Content = contentFactory.Get(GameTileContentType.Ground);
+            tile.Content = contentFactory.Get<Ground>(GameTileContentType.Ground);
             if (!FindPaths())
             {
-                tile.Content = contentFactory.Get(GameTileContentType.Destination);
+                tile.Content = contentFactory.Get<GameTileContent>(GameTileContentType.Destination); //probably needs to be modified to be specific type Destination
                 FindPaths();
                 return false;
             }
@@ -254,9 +254,13 @@ public class GameBoard : MonoBehaviour
 
     public bool PlaceDestination(GameTile tile)
     {
+        if(tile.Content.Type == GameTileContentType.Resource)
+        {
+            Demolish(tile);
+        }
         if (tile.Content.Type == GameTileContentType.Ground)
         {
-            tile.Content = contentFactory.Get(GameTileContentType.Destination);
+            tile.Content = contentFactory.Get<GameTileContent>(GameTileContentType.Destination);
             FindPaths();
             return true;
         }
@@ -267,10 +271,10 @@ public class GameBoard : MonoBehaviour
     {
         if (tile.Content.Type == GameTileContentType.Ground)
         {
-            tile.Content = contentFactory.Get(GameTileContentType.Wall);
+            tile.Content = contentFactory.Get<Wall>(GameTileContentType.Wall);
             if(!FindPaths())
             {
-                tile.Content = contentFactory.Get(GameTileContentType.Ground);
+                tile.Content = contentFactory.Get<GameTileContent>(GameTileContentType.Ground);
                 FindPaths();
                 return false;
             }
@@ -283,7 +287,7 @@ public class GameBoard : MonoBehaviour
     {
         if (tile.Content.Type == GameTileContentType.Ground)
         {
-            tile.Content = contentFactory.Get(towerType);
+            tile.Content = contentFactory.Get<Tower>(GameTileContentType.Tower,(int)towerType);
             if (FindPaths())
             {
                 updatingContent.Add(tile.Content);
@@ -291,14 +295,14 @@ public class GameBoard : MonoBehaviour
             }
             else
             { 
-                tile.Content = contentFactory.Get(GameTileContentType.Ground);
+                tile.Content = contentFactory.Get<GameTileContent>(GameTileContentType.Ground);
                 FindPaths();
                 return false;
             }
         }
         else if(tile.Content.Type == GameTileContentType.Wall)
         {
-            tile.Content = contentFactory.Get(towerType);
+            tile.Content = contentFactory.Get<Tower>(GameTileContentType.Tower, (int)towerType);
             updatingContent.Add(tile.Content);
             return true;
         }
@@ -309,7 +313,7 @@ public class GameBoard : MonoBehaviour
     {
         if (tile.Content.Type == GameTileContentType.Ground)
         {
-            tile.Content = contentFactory.Get(GameTileContentType.SpawnPoint);
+            tile.Content = contentFactory.Get<GameTileContent>(GameTileContentType.SpawnPoint);
             spawnPoints.Add(tile);
         }
     }
