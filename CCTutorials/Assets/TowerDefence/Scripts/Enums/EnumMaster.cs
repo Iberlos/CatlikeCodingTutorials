@@ -29,6 +29,8 @@ public enum ResourceType
     Forest = 0,
     Metal,
     Crystal,
+    Food,
+    Gold,
     Last
 }
 

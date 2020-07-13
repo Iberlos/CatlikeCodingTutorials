@@ -33,6 +33,7 @@ public class Game : MonoBehaviour
     private const float playTimeScale = 1f;
     private const float pausedTimeScale = 0f;
     private StructurePlacementManager placementManager = default;
+    public ResourceWallet wallet = default;
 
     public GameSpeedState GameSpeedState { get; private set; }
 
@@ -52,11 +53,14 @@ public class Game : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         playerHealth = startingPlayerHealth;
+        wallet = GetComponent<ResourceWallet>();
         board.Initialize(boardSize, tileContentFactory, ref generatorParameters);
         board.ShowGrid = true;
         activeScenario = scenario.Begin();
         placementManager = GetComponent<StructurePlacementManager>();
+
         SetPlaySpeed(GameSpeedState.Playing);
     }
 
@@ -112,6 +116,7 @@ public class Game : MonoBehaviour
         enemies.GameUpdate();
         Physics.SyncTransforms();
         board.GameUpdate();
+        wallet.GameUpdate();
         nonEnemies.GameUpdate();
         gameCamera.GameUpdate();
     }
@@ -123,6 +128,7 @@ public class Game : MonoBehaviour
         nonEnemies.Clear();
         board.GenerateMap(ref generatorParameters);
         activeScenario = scenario.Begin();
+        wallet.Recycle();
     }
 
     void HandleHold()

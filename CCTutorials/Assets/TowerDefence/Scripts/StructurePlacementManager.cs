@@ -28,19 +28,9 @@ public class StructurePlacementManager : GameBehavior
                         placedSomething = board.Demolish(tile);
                         break;
                     }
-                case GameTileContentType.Wall:
+                default:
                     {
-                        placedSomething = board.PlaceWall(tile);
-                        break;
-                    }
-                case GameTileContentType.Destination:
-                    {
-                        placedSomething = board.PlaceDestination(tile);
-                        break;
-                    }
-                case GameTileContentType.Tower:
-                    {
-                        placedSomething = board.PlaceTower(tile, (TowerType)variationConstructionType);
+                        placedSomething = board.PlaceBuilding(tile, constructionType, variationConstructionType);
                         break;
                     }
             }
