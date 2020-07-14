@@ -73,8 +73,22 @@ public class GameTile : MonoBehaviour
         set
         {
             Debug.Assert(value != null, "Null assigned to content");
-            if(content != null)
+            Buildable b = value as Buildable;
+            if (b != null)
             {
+                if (!b.Build())
+                {
+                    value.Recycle();
+                    return;
+                }
+            }
+            if (content != null)
+            {
+                Demolishable d = content as Demolishable;
+                if (d != null)
+                {
+                    d.Demolish();
+                }
                 content.Recycle();
             }
             content = value;

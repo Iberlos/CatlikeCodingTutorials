@@ -60,6 +60,13 @@ MonoBehaviour:
     north_east_west_northWest: {fileID: 0}
     defaultMesh: {fileID: 0}
   terrainMeshFilter: {fileID: 0}
+  spendingSum:
+    food: 0
+    wood: 10
+    metal: 0
+    crystal: 0
+    gold: 0
+  recyclingPercentage: 50
   destinationType: 1
 --- !u!1001 &590476071825753480
 PrefabInstance:

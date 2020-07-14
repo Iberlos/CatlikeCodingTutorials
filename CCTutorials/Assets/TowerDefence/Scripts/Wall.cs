@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wall : GameTileContent
+public class Wall : Buildable
 {
     [SerializeField]
     private GameObject tower = default;

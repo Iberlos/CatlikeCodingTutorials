@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Destination : GameTileContent
+public class Destination : Buildable
 {
     public DestinationType destinationType;
     public override int Variation => (int)destinationType;

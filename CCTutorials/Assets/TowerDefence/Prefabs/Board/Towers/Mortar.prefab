@@ -237,6 +237,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 7
+  staticAdaptation: 0
+  tileTypeSet:
+    north_south: {fileID: 0}
+    north_west: {fileID: 0}
+    north_east_west: {fileID: 0}
+    north_east_south_west: {fileID: 0}
+    south_west: {fileID: 0}
+    north_south_southWest_west_northWest: {fileID: 0}
+    north_west_northWest: {fileID: 0}
+    north_northEast_east_south_west_northWest: {fileID: 0}
+    north_northEast_east_south_southWest_west_northWest: {fileID: 0}
+    north_northEast_east_west: {fileID: 0}
+    north_east_west_northWest: {fileID: 0}
+    defaultMesh: {fileID: 0}
+  terrainMeshFilter: {fileID: 0}
+  spendingSum:
+    food: 0
+    wood: 25
+    metal: 50
+    crystal: 0
+    gold: 0
+  recyclingPercentage: 50
   targetingRange: 3.5
   shotsPerSecond: 1
   mortar: {fileID: 498994965628159977}

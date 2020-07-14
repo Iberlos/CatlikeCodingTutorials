@@ -60,4 +60,12 @@ public class CameraBehavior : GameBehavior
     {
         throw new System.NotImplementedException();
     }
+
+    public void SetPositionAndRotation(Vector3 positionOnGrid, Vector3 eulerAngles = default)
+    {
+        Vector3 pos = positionOnGrid;
+        transform.rotation = Quaternion.Euler(cameraDegreesX, cameraDegreesY, 0f);
+        transform.position = pos - transform.forward * offsetDistance;
+        position = positionOnGrid;
+    }
 }

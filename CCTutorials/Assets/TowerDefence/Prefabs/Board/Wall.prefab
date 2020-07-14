@@ -153,6 +153,13 @@ MonoBehaviour:
     north_east_west_northWest: {fileID: 0}
     defaultMesh: {fileID: 0}
   terrainMeshFilter: {fileID: 0}
+  spendingSum:
+    food: 0
+    wood: 5
+    metal: 0
+    crystal: 0
+    gold: 0
+  recyclingPercentage: 50
   tower: {fileID: 608809412800955270}
   northWall: {fileID: 8794969347868746430}
   northEastWall: {fileID: 7049735636083280989}

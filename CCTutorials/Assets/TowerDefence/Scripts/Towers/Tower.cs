@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class Tower : GameTileContent
+public abstract class Tower : Buildable
 {
     [SerializeField, Range(1.5f, 10.5f)]
     protected float targetingRange = 1.5f;

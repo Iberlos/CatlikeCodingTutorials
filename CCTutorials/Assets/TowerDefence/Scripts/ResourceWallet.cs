@@ -47,12 +47,17 @@ public class ResourceWallet : GameBehavior
         Metal += metalGeneratedPerSecond * Time.deltaTime;
         Crystal += crystalGeneratedPerSecond * Time.deltaTime;
         Gold += goldGeneratedPerSecond * Time.deltaTime;
+        UpdateVisuals();
+        return true;
+    }
+
+    private void UpdateVisuals()
+    {
         foodCounter.text = ((int)Food).ToString();
         woodCounter.text = ((int)Wood).ToString();
         metalCounter.text = ((int)Metal).ToString();
         crystalCounter.text = ((int)Crystal).ToString();
         goldCounter.text = ((int)Gold).ToString();
-        return true;
     }
 
     public void UpdateResourceGeneration(ResourceType previous, ResourceType current, float previousGeneration, float currentGeneration)
@@ -117,20 +122,96 @@ public class ResourceWallet : GameBehavior
 
     public override void Recycle()
     {
-        Food = 0; 
-        Wood = 0; 
-        Metal = 0; 
-        Crystal = 0; 
-        Gold = 0; 
+        Food = startingFood; 
+        Wood = startingWood; 
+        Metal = startingMetal; 
+        Crystal = startingCrystal; 
+        Gold = startingGold; 
         foodGeneratedPerSecond = 0;
         woodGeneratedPerSecond = 0;
         metalGeneratedPerSecond = 0;
         crystalGeneratedPerSecond = 0;
         goldGeneratedPerSecond = 0;
-        foodCounter.text = ((int)Food).ToString();
-        woodCounter.text = ((int)Wood).ToString();
-        metalCounter.text = ((int)Metal).ToString();
-        crystalCounter.text = ((int)Crystal).ToString();
-        goldCounter.text = ((int)Gold).ToString();
+        UpdateVisuals();
+    }
+
+    public bool RequestResource(SpendingSum spendingSum)
+    {
+        if(Food >= spendingSum.food && Wood >= spendingSum.wood && Metal >= spendingSum.metal && Crystal >= spendingSum.crystal && Gold >= spendingSum.gold)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void SpendResources(SpendingSum spendingSum)
+    {
+        Food -= spendingSum.food;
+        Wood -= spendingSum.wood;
+        Metal -= spendingSum.metal;
+        Crystal -= spendingSum.crystal;
+        Gold -= spendingSum.gold;
+        UpdateVisuals();
+    }
+
+    [System.Serializable]
+    public struct SpendingSum
+    {
+        public int food, wood, metal, crystal, gold;
+        public SpendingSum(int food, int wood, int metal, int crystal, int gold)
+        {
+            this.food = food;
+            this.wood = wood;
+            this.metal = metal;
+            this.crystal = crystal;
+            this.gold = gold;
+        }
+
+        public SpendingSum(ResourceType type, int amount)
+        {
+            switch (type)
+            {
+                case ResourceType.Food:
+                    {
+                        food = amount;
+                        wood = metal = crystal = gold = 0;
+                        break;
+                    }
+                case ResourceType.Forest:
+                    {
+                        wood = amount;
+                        food = metal = crystal = gold = 0;
+                        break;
+                    }
+                case ResourceType.Metal:
+                    {
+                        metal = amount;
+                        wood = food = crystal = gold = 0;
+                        break;
+                    }
+                case ResourceType.Crystal:
+                    {
+                        crystal = amount;
+                        wood = metal = food = gold = 0;
+                        break;
+                    }
+                case ResourceType.Gold:
+                    {
+                        gold = amount;
+                        wood = metal = crystal = food = 0;
+                        break;
+                    }
+                default:
+                    {
+                        food = wood = metal = crystal = gold = 0;
+                        break;
+                    }
+            }
+        }
+
+        public SpendingSum RecycledByPercentage(float recycleFraction)
+        {
+            return new SpendingSum((int)(-food * recycleFraction), (int)(-wood * recycleFraction), (int)(-metal * recycleFraction), (int)(-crystal * recycleFraction), 0);
+        }
     }
 }

@@ -33,6 +33,7 @@ public class Game : MonoBehaviour
     private const float playTimeScale = 1f;
     private const float pausedTimeScale = 0f;
     private StructurePlacementManager placementManager = default;
+    [HideInInspector]
     public ResourceWallet wallet = default;
 
     public GameSpeedState GameSpeedState { get; private set; }
@@ -56,11 +57,11 @@ public class Game : MonoBehaviour
         instance = this;
         playerHealth = startingPlayerHealth;
         wallet = GetComponent<ResourceWallet>();
+        wallet.Recycle();
         board.Initialize(boardSize, tileContentFactory, ref generatorParameters);
         board.ShowGrid = true;
         activeScenario = scenario.Begin();
         placementManager = GetComponent<StructurePlacementManager>();
-
         SetPlaySpeed(GameSpeedState.Playing);
     }
 
@@ -129,6 +130,7 @@ public class Game : MonoBehaviour
         board.GenerateMap(ref generatorParameters);
         activeScenario = scenario.Begin();
         wallet.Recycle();
+        gameCamera.SetPositionAndRotation(Vector3.zero);
     }
 
     void HandleHold()
@@ -162,6 +164,13 @@ public class Game : MonoBehaviour
         Shell shell = instance.warFactory.Shell;
         instance.nonEnemies.Add(shell);
         return shell;
+    }
+
+    public static Arrow SpawnArrow()
+    {
+        Arrow arrow = instance.warFactory.Arrow;
+        instance.nonEnemies.Add(arrow);
+        return arrow;
     }
 
     public static Explosion SpawnExplosion()

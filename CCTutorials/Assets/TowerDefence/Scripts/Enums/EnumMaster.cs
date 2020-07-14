@@ -45,6 +45,7 @@ public enum TowerType
 {
     Laser = 0,
     Mortar,
+    Archer,
     Last
 }
 

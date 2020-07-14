@@ -24,6 +24,8 @@ public class Enemy : GameBehavior
 
     Collider targetPointCollider;
 
+    public Vector3 Velocity => (positionTo - positionFrom).normalized * speed;
+
     public Collider TargetPointCollider
     {
         set

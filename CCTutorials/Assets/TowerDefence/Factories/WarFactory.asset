@@ -16,3 +16,5 @@ MonoBehaviour:
     type: 3}
   explosionPrefab: {fileID: 4002070573095311656, guid: c9863ce241de36143bbadcfeaf6e0b63,
     type: 3}
+  arrowPrefab: {fileID: -7676950354143828324, guid: 2d7973f0c39626b4e915cd00ebcbf8b1,
+    type: 3}
