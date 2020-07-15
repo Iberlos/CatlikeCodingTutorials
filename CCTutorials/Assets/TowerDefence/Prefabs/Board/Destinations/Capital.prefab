@@ -60,6 +60,7 @@ MonoBehaviour:
     north_east_west_northWest: {fileID: 0}
     defaultMesh: {fileID: 0}
   terrainMeshFilter: {fileID: 0}
+  health: 10
   spendingSum:
     food: 0
     wood: 0

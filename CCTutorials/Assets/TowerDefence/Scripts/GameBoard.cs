@@ -155,7 +155,7 @@ public class GameBoard : MonoBehaviour
         }
     }
 
-    private bool FindPaths()
+    private bool FindPaths(bool crossHardTerrain = false)
     {
         foreach(GameTile tile in tiles)
         {
@@ -180,19 +180,20 @@ public class GameBoard : MonoBehaviour
             GameTile tile = searchFrontier.Dequeue();
             if (tile != null)
             {
+                int before = searchFrontier.Count;
                 if (tile.IsAlternative)
                 {
-                    searchFrontier.Enqueue(tile.GrowPathNorth());
-                    searchFrontier.Enqueue(tile.GrowPathSouth());
-                    searchFrontier.Enqueue(tile.GrowPathEast());
-                    searchFrontier.Enqueue(tile.GrowPathWest());
+                    searchFrontier.Enqueue(tile.GrowPathNorth(crossHardTerrain));
+                    searchFrontier.Enqueue(tile.GrowPathSouth(crossHardTerrain));
+                    searchFrontier.Enqueue(tile.GrowPathEast(crossHardTerrain));
+                    searchFrontier.Enqueue(tile.GrowPathWest(crossHardTerrain));
                 }
                 else
                 {
-                    searchFrontier.Enqueue(tile.GrowPathWest());
-                    searchFrontier.Enqueue(tile.GrowPathEast());
-                    searchFrontier.Enqueue(tile.GrowPathSouth());
-                    searchFrontier.Enqueue(tile.GrowPathNorth());
+                    searchFrontier.Enqueue(tile.GrowPathWest(crossHardTerrain));
+                    searchFrontier.Enqueue(tile.GrowPathEast(crossHardTerrain));
+                    searchFrontier.Enqueue(tile.GrowPathSouth(crossHardTerrain));
+                    searchFrontier.Enqueue(tile.GrowPathNorth(crossHardTerrain));
                 }
             }
         }
@@ -203,8 +204,8 @@ public class GameBoard : MonoBehaviour
             Wall w = tile.Content as Wall;
             if (w)
                 w.Adapt(tile);
-            if (!tilePrefab.HasPath)
-                return false;
+            if (!tile.HasPath && tile.Content.Type != GameTileContentType.Water && tile.Content.Type != GameTileContentType.Mountain)
+                return FindPaths(true);
         }
 
         if(showPaths)
@@ -234,6 +235,12 @@ public class GameBoard : MonoBehaviour
 
     public bool Demolish(GameTile tile)
     {
+        if(tile.Content.Type != GameTileContentType.Destination)
+        {
+            Destination d = tile.Content as Destination;
+            if (d != null && d.destinationType == DestinationType.Capital)
+                return false;
+        }
         if(tile.Content.Type != GameTileContentType.Ground && tile.Content.Type != GameTileContentType.Water && tile.Content.Type != GameTileContentType.Mountain)
         {
             if (tile.Content.Type == GameTileContentType.Tower) //Fix for tower removal causing issues in update
@@ -241,6 +248,7 @@ public class GameBoard : MonoBehaviour
                 updatingContent.Remove(tile.Content);
             }
             tile.Content = contentFactory.Get<Ground>(GameTileContentType.Ground);
+            FindPaths();
             return true;
         }
         return false;

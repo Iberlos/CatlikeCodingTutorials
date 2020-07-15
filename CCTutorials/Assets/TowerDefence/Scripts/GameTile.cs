@@ -154,7 +154,7 @@ public class GameTile : MonoBehaviour
         ExitPoint = transform.localPosition;
     }
 
-    GameTile GrowPathTo(GameTile neighbor, Direction direction)
+    GameTile GrowPathTo(GameTile neighbor, Direction direction, bool crossHardTerrain)
     {
         if (!HasPath || neighbor == null || neighbor.HasPath)
         {
@@ -164,13 +164,13 @@ public class GameTile : MonoBehaviour
         neighbor.nextOnPath = this;
         neighbor.ExitPoint = neighbor.transform.localPosition + direction.GetHalfVector();
         neighbor.PathDirection = direction;
-        return neighbor.content.BlocksPath ? null : neighbor;
+        return crossHardTerrain ? (neighbor.content.BlocksPath ? null : neighbor) : (neighbor.content.BlocksPath || neighbor.content.HardTerrain ? null : neighbor);
     }
 
-    public GameTile GrowPathNorth() => GrowPathTo(north, Direction.South);
-    public GameTile GrowPathEast() => GrowPathTo(east, Direction.West);
-    public GameTile GrowPathSouth() => GrowPathTo(south, Direction.North);
-    public GameTile GrowPathWest() => GrowPathTo(west, Direction.East);
+    public GameTile GrowPathNorth(bool crossHardTerrain = false) => GrowPathTo(north, Direction.South, crossHardTerrain);
+    public GameTile GrowPathEast(bool crossHardTerrain = false) => GrowPathTo(east, Direction.West, crossHardTerrain);
+    public GameTile GrowPathSouth(bool crossHardTerrain = false) => GrowPathTo(south, Direction.North, crossHardTerrain);
+    public GameTile GrowPathWest(bool crossHardTerrain = false) => GrowPathTo(west, Direction.East, crossHardTerrain);
 
     public void ShowPath()
     {
@@ -185,6 +185,14 @@ public class GameTile : MonoBehaviour
             nextOnPath == east ? eastRotation :
             nextOnPath == south ? southRotation :
             westRotation;
+        if(!HasPath)
+        {
+            arrow.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+        else
+        {
+            arrow.GetComponent<MeshRenderer>().material.color = Color.green;
+        }
     }
 
     public void HidePath()

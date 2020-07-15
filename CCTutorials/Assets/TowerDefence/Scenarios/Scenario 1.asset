@@ -16,3 +16,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 001de061eff7a76428ad1fac55a87a10, type: 2}
   - {fileID: 11400000, guid: ae59e3592f7a6f04ea382d50043530a5, type: 2}
   - {fileID: 11400000, guid: 001de061eff7a76428ad1fac55a87a10, type: 2}
+  cycles: 1
+  cycleSpeedUp: 0.5
+  startText: 'Greatings your highness!
+
+    It seems our lasting peace is at an end!
+    Our scouts report bandits are nearing our borders from the west and although
+    the desert to the east serves as a great barrier, we can''t assume the nomads
+    will not cause any problems in the future either! Besides, who knows what other
+    surprises the ocean to the south may hold!
+
+    At least our ally to the north
+    will provide us with support and trade!
+
+
+    The scouts report we have '
+  initialDelay: 2
+  waveDelay: 0.5

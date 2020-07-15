@@ -9,6 +9,12 @@ public class GameScenario : ScriptableObject
     private int cycles = 1;
     [SerializeField, Range(0f, 1f)]
     private float cycleSpeedUp = 0.5f;
+    [SerializeField, TextArea]
+    private string startText = default;
+    [SerializeField]
+    public float initialDelay;
+    [SerializeField]
+    private float waveDelay;
 
     public State Begin() => new State(this);
 
@@ -24,6 +30,10 @@ public class GameScenario : ScriptableObject
 
         EnemyWave.State wave;
 
+        private float waveDelay;
+
+        public float timer;
+
         public State(GameScenario scenario)
         {
             this.scenario = scenario;
@@ -32,26 +42,47 @@ public class GameScenario : ScriptableObject
             timeScale = 1f;
             Debug.Assert(scenario.waves.Length > 0, "Empty scenario!");
             wave = scenario.waves[0].Begin();
+            waveDelay = scenario.waveDelay * 60f;
+            timer = scenario.initialDelay * 60f;
+            Game.DisplayScenarioText(scenario.startText + scenario.initialDelay.ToString() + " minutes before the enemy reaches our borders!");
         }
 
         public bool Progress()
         {
-            float deltaTime = wave.Progress(timeScale * Time.deltaTime);
-            while (deltaTime >= 0f)
+            if(timer >= 0)
             {
-                if (++index >= scenario.waves.Length)
-                {
-                    if(++cycle >= scenario.cycles && scenario.cycles > 0)
-                    {
-                        return false;
-                    }
-                    index = 0;
-                    timeScale += scenario.cycleSpeedUp;
-                }
-                wave = scenario.waves[index].Begin();
-                deltaTime = wave.Progress(deltaTime);
+                timer -= timeScale * Time.deltaTime;
+                Game.UpdateTimerBar(scenario, timer);
+                return true;
             }
-            return true;
+            else
+            {
+                if(timer!= -1)
+                {
+                    timer = -1;
+                    Game.UpdateTimerBar(scenario, timer);
+                }
+                float deltaTime = wave.Progress(timeScale * Time.deltaTime);
+                while (deltaTime >= 0f)
+                {
+                    if (++index >= scenario.waves.Length)
+                    {
+                        if (++cycle >= scenario.cycles && scenario.cycles > 0)
+                        {
+                            return false;
+                        }
+                        index = 0;
+                        timeScale += scenario.cycleSpeedUp;
+                    }
+                    else
+                    {
+                        timer = waveDelay;
+                        wave = scenario.waves[index].Begin();
+                    }
+                    //deltaTime = wave.Progress(deltaTime);
+                }
+                return true;
+            }
         }
     }
 }

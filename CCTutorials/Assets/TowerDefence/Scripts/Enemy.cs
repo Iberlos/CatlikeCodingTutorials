@@ -102,7 +102,7 @@ public class Enemy : GameBehavior
         {
             if (tileTo == null)
             {
-                Game.EnemyReachedDestination();
+                Game.EnemyReachedDestinationAtTile(tileFrom);
                 animator.PlayOutro();
                 targetPointCollider.enabled = false;
                 return true;
@@ -163,8 +163,18 @@ public class Enemy : GameBehavior
 
     void PrepareNextState()
     {
-        tileFrom = tileTo;
-        tileTo = tileTo.NextTileOnPath;
+        if(Game.IsTileOccupiedByBuilding(tileTo.NextTileOnPath))
+        {
+            GameTile temp = tileFrom;
+            tileFrom = tileTo;
+            tileTo = temp;
+        }
+        else
+        {
+            tileFrom = tileTo;
+            tileTo = tileTo.NextTileOnPath;
+        }
+
         positionFrom = positionTo;
         if (tileTo == null)
         {

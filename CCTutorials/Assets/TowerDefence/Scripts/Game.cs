@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -9,13 +10,19 @@ public class Game : MonoBehaviour
     [SerializeField]
     private Vector2Int boardSize = new Vector2Int(11, 11);
     [SerializeField]
-    private GameBoard board = default;
+    public GameBoard board = default;
     [SerializeField]
     private GameTileContentFactory tileContentFactory = default;
     [SerializeField]
     private WarFactory warFactory = default;
     [SerializeField]
     private GameScenario scenario = default;
+    [SerializeField]
+    private Image scenarioTextWindow;
+    [SerializeField]
+    private Text scenarioText;
+    [SerializeField]
+    private ScenarioTimeBar scenarioTimeBar;
     [SerializeField, Range(0, 100)]
     private int startingPlayerHealth = 10;
     [SerializeField, Range(1f, 10f)]
@@ -29,7 +36,7 @@ public class Game : MonoBehaviour
     private GameBehaviorCollection enemies = new GameBehaviorCollection();
     private GameBehaviorCollection nonEnemies = new GameBehaviorCollection();
     private GameScenario.State activeScenario;
-    private int playerHealth;
+    public int playerHealth;
     private const float playTimeScale = 1f;
     private const float pausedTimeScale = 0f;
     private StructurePlacementManager placementManager = default;
@@ -180,9 +187,36 @@ public class Game : MonoBehaviour
         return explosion;
     }
 
-    public static void EnemyReachedDestination()
+    public static void EnemyReachedDestinationAtTile(GameTile tile)
     {
-        instance.playerHealth -= 1;
+        Buildable b = tile.Content as Buildable;
+        if(b!=null)
+            b.TakeDamage(instance.board, tile);
+    }
+
+    public static bool IsTileOccupiedByBuilding(GameTile tile)
+    {
+        if(tile != null && (tile.Content.Type == GameTileContentType.Wall || tile.Content.Type == GameTileContentType.Tower))
+        {
+            Buildable b = tile.Content as Buildable;
+            if (b != null)
+                b.TakeDamage(instance.board, tile);
+            return true;
+        }
+        return false;
+    }
+
+    public static void DisplayScenarioText(string text)
+    {
+        instance.scenarioTextWindow.gameObject.SetActive(true);
+        instance.scenarioText.text = text;
+    }
+
+    public static void UpdateTimerBar(GameScenario scenario, float timer)
+    {
+        int secs = ((int)timer % 60);
+        string text = ((int)(timer / 60f)).ToString() + ":" + (secs<10?"0":"") + secs.ToString();
+        instance.scenarioTimeBar.UpdateTimeBar(timer/(scenario.initialDelay*60f), text);
     }
 
     public void ExitGame()

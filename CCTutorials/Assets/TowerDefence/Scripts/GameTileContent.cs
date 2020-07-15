@@ -45,7 +45,8 @@ public class GameTileContent : MonoBehaviour
         }
     }
 
-    public bool BlocksPath => Type == GameTileContentType.Wall || Type == GameTileContentType.Tower || Type == GameTileContentType.Water || Type == GameTileContentType.Mountain;
+    public bool BlocksPath => Type == GameTileContentType.Water || Type == GameTileContentType.Mountain;
+    public bool HardTerrain => Type == GameTileContentType.Tower || Type == GameTileContentType.Wall;
 
     private GameTileContentFactory originFactory;
 

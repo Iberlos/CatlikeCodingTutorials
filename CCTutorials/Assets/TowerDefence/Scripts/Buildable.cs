@@ -5,6 +5,8 @@ using UnityEngine;
 public class Buildable : Demolishable
 {
     [SerializeField]
+    private int health = 1;
+    [SerializeField]
     private ResourceWallet.SpendingSum spendingSum;
     [SerializeField, Range(0f, 100f)]
     private float recyclingPercentage = 50;
@@ -22,5 +24,17 @@ public class Buildable : Demolishable
             return true;
         }
         return false;
+    }
+
+    public void TakeDamage(GameBoard board, GameTile tile)
+    {
+        health--;
+        Destination d = this as Destination;
+        if (d != null && d.destinationType == DestinationType.Capital)
+            Game.instance.playerHealth--;
+        else if (health <=0)
+        {
+            Game.instance.board.Demolish(tile);
+        }
     }
 }
