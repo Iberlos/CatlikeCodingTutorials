@@ -67,6 +67,8 @@ public class GameTile : MonoBehaviour
 
     public bool HasPath => distance != int.MaxValue;
     public bool IsAlternative {get;set;}
+
+    public bool CausedSecondSearch { get; set; }
     public GameTileContent Content
     {
         get => content;
@@ -191,7 +193,14 @@ public class GameTile : MonoBehaviour
         }
         else
         {
-            arrow.GetComponent<MeshRenderer>().material.color = Color.green;
+            if(CausedSecondSearch)
+            {
+                arrow.GetComponent<MeshRenderer>().material.color = Color.yellow;
+            }
+            else
+            {
+                arrow.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
         }
     }
 

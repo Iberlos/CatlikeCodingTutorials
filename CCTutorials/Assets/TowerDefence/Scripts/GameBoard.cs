@@ -198,6 +198,7 @@ public class GameBoard : MonoBehaviour
             }
         }
 
+        bool searchAgain = false;
         foreach(GameTile tile in tiles)
         {
             tile.Content.Adapt(tile);
@@ -205,7 +206,25 @@ public class GameBoard : MonoBehaviour
             if (w)
                 w.Adapt(tile);
             if (!tile.HasPath && tile.Content.Type != GameTileContentType.Water && tile.Content.Type != GameTileContentType.Mountain)
-                return FindPaths(true);
+            {
+                if (!crossHardTerrain)
+                {
+                    tile.CausedSecondSearch = true;
+                    searchAgain = true;
+                }
+                else
+                {
+                    return false;
+                }
+            }else if(!crossHardTerrain)
+            {
+                tile.CausedSecondSearch = false;
+            }
+        }
+
+        if(searchAgain)
+        {
+            return FindPaths(true);
         }
 
         if(showPaths)
