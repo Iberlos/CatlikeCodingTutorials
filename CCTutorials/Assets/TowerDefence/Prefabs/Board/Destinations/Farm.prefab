@@ -60,6 +60,7 @@ MonoBehaviour:
     north_east_west_northWest: {fileID: 0}
     defaultMesh: {fileID: 0}
   terrainMeshFilter: {fileID: 0}
+  health: 1
   spendingSum:
     food: 0
     wood: 10
@@ -67,6 +68,9 @@ MonoBehaviour:
     crystal: 0
     gold: 0
   recyclingPercentage: 50
+  buildSound: {fileID: 8300000, guid: 925fe1297cea447489645d4520a0c4df, type: 3}
+  damageSound: {fileID: 8300000, guid: c8574e3b77d654143b3beb371d6b0a3d, type: 3}
+  destroySound: {fileID: 8300000, guid: 63bb0c1bf70ce1e478369cd554ae3106, type: 3}
   destinationType: 1
 --- !u!1001 &590476071825753480
 PrefabInstance:

@@ -59,8 +59,7 @@ public class GameScenario : ScriptableObject
             {
                 if(timer!= -1)
                 {
-                    timer = -1;
-                    Game.UpdateTimerBar(scenario, timer);
+                    Game.UpdateTimerBar(scenario, 0f);
                 }
                 float deltaTime = wave.Progress(timeScale * Time.deltaTime);
                 while (deltaTime >= 0f)

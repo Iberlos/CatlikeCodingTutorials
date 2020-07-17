@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc1c4af15c572c41a4323e4bb9cfb5b, type: 3}
+  m_Name: Scenario 2
+  m_EditorClassIdentifier: 
+  waves:
+  - {fileID: 11400000, guid: 001de061eff7a76428ad1fac55a87a10, type: 2}
+  - {fileID: 11400000, guid: ae59e3592f7a6f04ea382d50043530a5, type: 2}
+  - {fileID: 11400000, guid: 001de061eff7a76428ad1fac55a87a10, type: 2}
+  cycles: 1
+  cycleSpeedUp: 0.5
+  startText: 'We have achieved victory over the bandits to the west your highness!
+    Now that they respect our strength they will now be more willing to trade in
+    the future.
+
+    The peace will be short lived, I am afraid. I bring a report
+    that the nomads to the east will be upon our borders very soon! We must prepare!
+
+    I
+    must also bring to your attention that our ally to the north has also acnowleged
+    our self sufficience and turned its sights to its own protection. They no longer
+    will activelly defend our outposts close to their borders.
+
+
+    The scouts report
+    we have '
+  initialDelay: 2
+  waveDelay: 0.5

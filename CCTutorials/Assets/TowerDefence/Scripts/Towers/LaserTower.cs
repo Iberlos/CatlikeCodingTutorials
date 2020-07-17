@@ -23,10 +23,13 @@ public class LaserTower : Tower
     {
         if (TrackTarget(ref target) || AcquireTarget(out target))
         {
+            if(audioSource.clip == firingSound || !audioSource.isPlaying)
+                PlayTowerSound(firingSound);
             Shoot();
         }
         else
         {
+            audioSource.Stop();
             laserBeam.localScale = Vector3.zero;
         }
     }
@@ -44,5 +47,17 @@ public class LaserTower : Tower
         laserBeam.localPosition = turret.localPosition + 0.5f * d * laserBeam.forward;
 
         target.Enemy.ApplyDamage(damagePerSecond * Time.deltaTime);
+    }
+
+    protected override void PlayTowerSound(AudioClip clip)
+    {
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        audioSource.clip = clip;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 }

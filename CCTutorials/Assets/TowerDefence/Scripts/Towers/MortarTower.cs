@@ -50,6 +50,7 @@ public class MortarTower : Tower
 
     public void Launch(TargetPoint target)
     {
+        PlayTowerSound(firingSound);
         Vector3 launchPoint = mortar.position;
         Vector3 targetPoint = target.Position;
 

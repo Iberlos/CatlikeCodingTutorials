@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class Game : MonoBehaviour
 {
     [SerializeField]
+    private AudioClip ambientMusic;
+    [SerializeField]
+    private AudioClip battleMusic;
+    [SerializeField]
     private CameraBehavior gameCamera = default;
     [SerializeField]
     private Vector2Int boardSize = new Vector2Int(11, 11);
@@ -16,7 +20,7 @@ public class Game : MonoBehaviour
     [SerializeField]
     private WarFactory warFactory = default;
     [SerializeField]
-    private GameScenario scenario = default;
+    private GameScenario[] scenarios = default;
     [SerializeField]
     private Image scenarioTextWindow;
     [SerializeField]
@@ -35,6 +39,7 @@ public class Game : MonoBehaviour
 
     private GameBehaviorCollection enemies = new GameBehaviorCollection();
     private GameBehaviorCollection nonEnemies = new GameBehaviorCollection();
+    private int activeScenarioIndex = 0;
     private GameScenario.State activeScenario;
     public int playerHealth;
     private const float playTimeScale = 1f;
@@ -46,6 +51,8 @@ public class Game : MonoBehaviour
     public GameSpeedState GameSpeedState { get; private set; }
 
     public static Game instance;
+
+    private AudioSource audioSource;
 
     private void OnValidate()
     {
@@ -67,9 +74,10 @@ public class Game : MonoBehaviour
         wallet.Recycle();
         board.Initialize(boardSize, tileContentFactory, ref generatorParameters);
         board.ShowGrid = true;
-        activeScenario = scenario.Begin();
+        activeScenario = scenarios[activeScenarioIndex].Begin();
         placementManager = GetComponent<StructurePlacementManager>();
         SetPlaySpeed(GameSpeedState.Playing);
+        instance.PlayGameSound(instance.ambientMusic);
     }
 
     private void OnEnable()
@@ -115,10 +123,17 @@ public class Game : MonoBehaviour
 
         if(!activeScenario.Progress() && enemies.IsEmpty)
         {
-            Debug.Log("Victory");
-            BeginNewGame();
-            activeScenario.Progress();
-            return;
+            if(activeScenarioIndex++ == scenarios.Length)
+            {
+                Debug.Log("Victory");
+                BeginNewGame();
+                activeScenario.Progress();
+                return;
+            }
+            else
+            {
+                activeScenario = scenarios[activeScenarioIndex].Begin();
+            }
         }
 
         enemies.GameUpdate();
@@ -135,7 +150,8 @@ public class Game : MonoBehaviour
         enemies.Clear();
         nonEnemies.Clear();
         board.GenerateMap(ref generatorParameters);
-        activeScenario = scenario.Begin();
+        activeScenarioIndex = 0;
+        activeScenario = scenarios[activeScenarioIndex].Begin();
         wallet.Recycle();
         gameCamera.SetPositionAndRotation(Vector3.zero);
     }
@@ -214,9 +230,28 @@ public class Game : MonoBehaviour
 
     public static void UpdateTimerBar(GameScenario scenario, float timer)
     {
+        int mins = ((int)(timer / 60f));
         int secs = ((int)timer % 60);
-        string text = ((int)(timer / 60f)).ToString() + ":" + (secs<10?"0":"") + secs.ToString();
-        instance.scenarioTimeBar.UpdateTimeBar(timer/(scenario.initialDelay*60f), text);
+        string text;
+        float percentage = timer / (scenario.initialDelay * 60f);
+        if (mins == 0 && secs == 0)
+        {
+            if(instance.audioSource.clip != instance.battleMusic || !instance.audioSource.isPlaying)
+            {
+                instance.PlayGameSound(instance.battleMusic);
+            }
+            text = "Wave In Progress!";
+            percentage = 1f;
+        }
+        else
+        {
+            if (instance.audioSource.clip != instance.ambientMusic || !instance.audioSource.isPlaying)
+            {
+                instance.PlayGameSound(instance.ambientMusic);
+            }
+            text = mins.ToString() + ":" + (secs < 10 ? "0" : "") + secs.ToString();
+        }
+        instance.scenarioTimeBar.UpdateTimeBar(percentage, text);
     }
 
     public void ExitGame()
@@ -248,5 +283,17 @@ public class Game : MonoBehaviour
                     break;
                 }
         }
+    }
+
+    private void PlayGameSound(AudioClip clip)
+    {
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        audioSource.clip = clip;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 }

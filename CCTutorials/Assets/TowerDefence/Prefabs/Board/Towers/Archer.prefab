@@ -62,6 +62,7 @@ MonoBehaviour:
     north_east_west_northWest: {fileID: 0}
     defaultMesh: {fileID: 0}
   terrainMeshFilter: {fileID: 0}
+  health: 1
   spendingSum:
     food: 0
     wood: 15
@@ -69,7 +70,11 @@ MonoBehaviour:
     crystal: 0
     gold: 0
   recyclingPercentage: 50
+  buildSound: {fileID: 8300000, guid: 925fe1297cea447489645d4520a0c4df, type: 3}
+  damageSound: {fileID: 8300000, guid: c8574e3b77d654143b3beb371d6b0a3d, type: 3}
+  destroySound: {fileID: 8300000, guid: 63bb0c1bf70ce1e478369cd554ae3106, type: 3}
   targetingRange: 1.5
+  firingSound: {fileID: 8300000, guid: 8f667b4667e59ed4a89987fece0344e1, type: 3}
   shotsPerSecond: 2
   mortar: {fileID: 1636727680318682553}
   shellBlastRadius: 0.1

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc1c4af15c572c41a4323e4bb9cfb5b, type: 3}
+  m_Name: Scenario 3
+  m_EditorClassIdentifier: 
+  waves:
+  - {fileID: 11400000, guid: 001de061eff7a76428ad1fac55a87a10, type: 2}
+  - {fileID: 11400000, guid: ae59e3592f7a6f04ea382d50043530a5, type: 2}
+  - {fileID: 11400000, guid: 001de061eff7a76428ad1fac55a87a10, type: 2}
+  cycles: 1
+  cycleSpeedUp: 0.5
+  startText: 'The nomads have been brought to heel! They offer us trade in submission!
+    Their lands are unfertile, so they are willing to offer better prices than we
+    had so far, so we can''t pass this opportunity!
+
+    They envoys from our ally
+    to the north say that as long as we are not a threat to them we are allowed to
+    trade whith whomever we desire. But they warn us that the pirates to the south
+    will hear of this new and vulnerable source of riches one way or another.
+
+
+    The
+    scouts report we have '
+  initialDelay: 4
+  waveDelay: 0.5

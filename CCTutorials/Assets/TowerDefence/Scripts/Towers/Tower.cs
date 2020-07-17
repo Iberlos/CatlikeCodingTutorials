@@ -4,6 +4,8 @@ public abstract class Tower : Buildable
 {
     [SerializeField, Range(1.5f, 10.5f)]
     protected float targetingRange = 1.5f;
+    [SerializeField]
+    protected AudioClip firingSound = default;
 
     public abstract TowerType TowerType { get; }
 
@@ -48,5 +50,17 @@ public abstract class Tower : Buildable
         Vector3 position = transform.localPosition;
         position.y += 0.01f;
         Gizmos.DrawWireSphere(position, targetingRange);
+    }
+
+    protected virtual void PlayTowerSound(AudioClip clip)
+    {
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        audioSource.clip = clip;
+        audioSource.loop = false;
+        audioSource.Play();
     }
 }

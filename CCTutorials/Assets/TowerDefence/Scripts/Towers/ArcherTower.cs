@@ -51,6 +51,7 @@ public class ArcherTower : Tower
 
     public void Launch(TargetPoint target)
     {
+        PlayTowerSound(firingSound);
         Vector3 launchPoint = mortar.position;
         Vector3 targetPoint = target.Position + target.Enemy.Velocity * 1f/launchSpeed*Random.Range(1f-precision, 1f+precision);
 

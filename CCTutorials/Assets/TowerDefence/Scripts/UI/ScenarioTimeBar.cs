@@ -13,13 +13,6 @@ public class ScenarioTimeBar : MonoBehaviour
     public void UpdateTimeBar(float percentageTimeRemaining, string text)
     {
         Vector3 scale = fill.transform.localScale;
-        if (percentageTimeRemaining == -1f)
-        {
-            text = "Wave in Progress!";
-            scale.x = 1f;
-            fill.transform.localScale = scale;
-            fill.color = Color.red;
-        }
         scale.x = percentageTimeRemaining;
         fill.transform.localScale = scale;
         fill.color = Color.white;
