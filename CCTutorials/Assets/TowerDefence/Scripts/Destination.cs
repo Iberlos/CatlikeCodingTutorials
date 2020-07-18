@@ -137,4 +137,9 @@ public class Destination : Buildable
         }
         return added;
     }
+
+    public override void Clicked()
+    {
+        Game.EnableTradeMenu(transform);
+    }
 }

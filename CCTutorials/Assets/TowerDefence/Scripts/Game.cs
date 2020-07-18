@@ -10,6 +10,8 @@ public class Game : MonoBehaviour
     [SerializeField]
     private AudioClip battleMusic;
     [SerializeField]
+    private TradeMenuBehavior tradeMenu;
+    [SerializeField]
     private CameraBehavior gameCamera = default;
     [SerializeField]
     private Vector2Int boardSize = new Vector2Int(11, 11);
@@ -161,6 +163,15 @@ public class Game : MonoBehaviour
         if(!EventSystem.current.IsPointerOverGameObject())
         {
             GameTile tile = board.GetTile(TouchRay);
+            if(tile.Content.Type == GameTileContentType.Destination)
+            {
+                Destination d = tile.Content as Destination;
+                if(d.destinationType == DestinationType.Capital)
+                {
+                    d.Clicked();
+                    return;
+                }
+            }
             placementManager.InitiatePlacement(tile, board);
         }
     }
@@ -295,5 +306,10 @@ public class Game : MonoBehaviour
         audioSource.clip = clip;
         audioSource.loop = true;
         audioSource.Play();
+    }
+
+    public static void EnableTradeMenu(Transform target)
+    {
+        instance.tradeMenu.Activate(target);
     }
 }

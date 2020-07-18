@@ -61,4 +61,9 @@ public class Buildable : Demolishable
         audioSource.loop = false;
         audioSource.Play();
     }
+
+    public virtual void Clicked()
+    {
+
+    }
 }
