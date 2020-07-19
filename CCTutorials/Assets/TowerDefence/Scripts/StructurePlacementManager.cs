@@ -10,6 +10,8 @@ public class StructurePlacementManager : GameBehavior
     private int variationConstructionType;
     private GameTile lastTileConstructed;
 
+    public GameTileContentType ConstructionType { get => constructionType; }
+
     public override bool GameUpdate()
     {
         //Sets the display mesh position and color to show placement and if it is possible to build.

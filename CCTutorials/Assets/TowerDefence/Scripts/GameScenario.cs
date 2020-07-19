@@ -60,25 +60,29 @@ public class GameScenario : ScriptableObject
                 if(timer!= -1)
                 {
                     Game.UpdateTimerBar(scenario, 0f);
+                    timer = -1;
                 }
                 float deltaTime = wave.Progress(timeScale * Time.deltaTime);
-                while (deltaTime >= 0f)
+                if(Game.instance.WaveDefeated)
                 {
-                    if (++index >= scenario.waves.Length)
+                    while (deltaTime >= 0f)
                     {
-                        if (++cycle >= scenario.cycles && scenario.cycles > 0)
+                        if (++index >= scenario.waves.Length)
                         {
-                            return false;
+                            if (++cycle >= scenario.cycles && scenario.cycles > 0)
+                            {
+                                return false;
+                            }
+                            index = 0;
+                            timeScale += scenario.cycleSpeedUp;
                         }
-                        index = 0;
-                        timeScale += scenario.cycleSpeedUp;
+                        else
+                        {
+                            timer = waveDelay;
+                            wave = scenario.waves[index].Begin();
+                        }
+                        deltaTime = wave.Progress(deltaTime);
                     }
-                    else
-                    {
-                        timer = waveDelay;
-                        wave = scenario.waves[index].Begin();
-                    }
-                    //deltaTime = wave.Progress(deltaTime);
                 }
                 return true;
             }

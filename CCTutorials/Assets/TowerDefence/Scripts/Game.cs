@@ -56,6 +56,8 @@ public class Game : MonoBehaviour
 
     private AudioSource audioSource;
 
+    public bool WaveDefeated { get => enemies.IsEmpty; }
+
     private void OnValidate()
     {
         if (boardSize.x < 2)
@@ -171,8 +173,10 @@ public class Game : MonoBehaviour
             {
                 Buildable d = tile.Content as Buildable;
                 d.Clicked();
-                placementManager.CancelPlacement();
-                return;
+                if(placementManager.ConstructionType != GameTileContentType.Ground)
+                    placementManager.CancelPlacement();
+                else
+                    ToggleTradeMenu(null, false);
             }
             else
             {
@@ -186,8 +190,11 @@ public class Game : MonoBehaviour
     {
         if(!EventSystem.current.IsPointerOverGameObject())
         {
-            GameTile tile = board.GetTile(TouchRay);
-            placementManager.InitiatePlacement(tile, board);
+            if(placementManager.ConstructionType == GameTileContentType.Wall || placementManager.ConstructionType == GameTileContentType.Ground)
+            {
+                GameTile tile = board.GetTile(TouchRay);
+                placementManager.InitiatePlacement(tile, board);
+            }
         }
     }
     void HandleRelease()
