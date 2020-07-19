@@ -4056,7 +4056,7 @@ MonoBehaviour:
   cameraZoomSpeed: 5
   target: {fileID: 0}
   offsetDistance: 8
-  minOffsetDistance: 1
+  minOffsetDistance: 3
   maxOffsetDistance: 15
   cameraDegreesX: 60
   cameraDegreesY: 0

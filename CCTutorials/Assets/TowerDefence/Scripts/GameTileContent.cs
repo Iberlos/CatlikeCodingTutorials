@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 public struct TileTypeSet
@@ -16,9 +14,12 @@ public struct TileTypeSet
     public Mesh north_northEast_east_south_southWest_west_northWest;
     public Mesh north_northEast_east_west;
     public Mesh north_east_west_northWest;
+    public Mesh north_east_southEast_south_west_northWest;
+    public Mesh north_east_south_west_northWest;
+    public Mesh north;
     public Mesh defaultMesh;
 
-    public bool Valid => north_south != null && north_west != null && north_east_west != null && north_east_south_west != null && south_west != null && north_south_southWest_west_northWest != null && north_west_northWest != null && north_northEast_east_south_west_northWest != null && north_northEast_east_south_southWest_west_northWest != null && north_northEast_east_west != null && north_east_west_northWest != null && defaultMesh != null;
+    public bool Valid => north_south != null && north_west != null && north_east_west != null && north_east_south_west != null && south_west != null && north_south_southWest_west_northWest != null && north_west_northWest != null && north_northEast_east_south_west_northWest != null && north_northEast_east_south_southWest_west_northWest != null && north_northEast_east_west != null && north_east_west_northWest != null && north_east_southEast_south_west_northWest != null && north_east_south_west_northWest != null && north != null && defaultMesh != null;
 }
 
 [SelectionBase]
@@ -93,7 +94,6 @@ public class GameTileContent : MonoBehaviour
                 case 0b11111111:
                     {
                         terrainMeshFilter.mesh = tileTypeSet.defaultMesh;
-                        terrainMeshFilter.transform.position = new Vector3(terrainMeshFilter.transform.position.x, -0.1f, terrainMeshFilter.transform.position.z);
                         meshFound = true;
                         break;
                     }
@@ -200,6 +200,27 @@ public class GameTileContent : MonoBehaviour
                         meshFound = true;
                         break;
                     }
+                case (int)cartographicDirection.North | (int)cartographicDirection.East | (int)cartographicDirection.SouthEast | (int)cartographicDirection.South | (int)cartographicDirection.West | (int)cartographicDirection.NorthWest:
+                    {
+                        terrainMeshFilter.mesh = tileTypeSet.north_east_southEast_south_west_northWest;
+                        meshFound = true;
+                        break;
+                    }
+                case (int)cartographicDirection.North | (int)cartographicDirection.East | (int)cartographicDirection.South | (int)cartographicDirection.West | (int)cartographicDirection.West | (int)cartographicDirection.NorthWest:
+                    {
+                        terrainMeshFilter.mesh = tileTypeSet.north_east_south_west_northWest;
+                        meshFound = true;
+                        break;
+                    }
+                case (int)cartographicDirection.North:
+                case (int)cartographicDirection.North | (int)cartographicDirection.NorthEast:
+                case (int)cartographicDirection.North | (int)cartographicDirection.NorthWest:
+                case (int)cartographicDirection.North | (int)cartographicDirection.NorthEast | (int)cartographicDirection.NorthWest:
+                    {
+                        terrainMeshFilter.mesh = tileTypeSet.north;
+                        meshFound = true;
+                        break;
+                    }
                 default: //Tile unsuported
                     {
                         if(i == 3)
@@ -217,8 +238,7 @@ public class GameTileContent : MonoBehaviour
             mask = mask >> 2;
             flags = first | mask;//shift Rotate flags by 2
             yAngle += 90;//increse the yAngle by 90
-
-            terrainMeshFilter.transform.rotation = Quaternion.Euler(0f, yAngle, 0f);
         }
+        terrainMeshFilter.transform.rotation = Quaternion.Euler(0f, yAngle, 0f);
     }
 }

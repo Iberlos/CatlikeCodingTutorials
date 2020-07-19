@@ -65,7 +65,14 @@ MonoBehaviour:
       type: 3}
     north_east_west_northWest: {fileID: 4300000, guid: b2ec6f76e1d7a9e4396b4123f2bf3bf1,
       type: 3}
-    defaultMesh: {fileID: 4300000, guid: 4f8e6c0c3f8ddcd4ca15d1b04484ef2a, type: 3}
+    north_east_southEast_south_west_northWest: {fileID: 3959131798961436920, guid: 2f104500f7e0e2d49a4df595c06521bf,
+      type: 3}
+    north_east_south_west_northWest: {fileID: 8988079340204828834, guid: ddda9af815ba087498938780d2bbb84e,
+      type: 3}
+    north: {fileID: -3290131815283799674, guid: 81473a626e13cb84da9dbd8c3ddfedce,
+      type: 3}
+    defaultMesh: {fileID: 2527833337458107010, guid: 192b60f0573c9024aae89433f8cf6298,
+      type: 3}
   terrainMeshFilter: {fileID: 2370554170862824880}
 --- !u!1001 &2370554170863990544
 PrefabInstance:

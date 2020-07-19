@@ -69,6 +69,12 @@ MonoBehaviour:
       type: 3}
     north_east_west_northWest: {fileID: 7566070509352137874, guid: 55b26e128e5edfa48ba470f048156b6d,
       type: 3}
+    north_east_southEast_south_west_northWest: {fileID: -3639392929641932092, guid: e5efa1bfa683ea14686db27e50e5a75e,
+      type: 3}
+    north_east_south_west_northWest: {fileID: -7306037733896852187, guid: fcf193f75a361e041935240957625b44,
+      type: 3}
+    north: {fileID: -6839861466500442274, guid: 9aba1b7b8170adf42b056e9bdd80c9ac,
+      type: 3}
     defaultMesh: {fileID: -8040866168836439959, guid: e00f77c52f93ade438bf0651e4ef1806,
       type: 3}
   terrainMeshFilter: {fileID: 5420216111804470841}
