@@ -7,13 +7,30 @@ public class Destination : Buildable
     public DestinationType destinationType;
     public override int Variation => (int)destinationType;
 
-    private ResourceType gatheringResource = ResourceType.Forest;
-    private int gatheringResourceCount = 0;
+    private ResourceType gatheringResource = ResourceType.Wood, previousGatheringResource = ResourceType.Wood;
+    private int gatheringResourceCount = 0, previousGatheringResourceCount = 0;
     private float eficiency = 0.1f;
+    private float goldConversionPercentage, previousGoldConversionPercentage = 0f;
     private int reach = 1;
+
+    public float MaxResourceProduction => gatheringResourceCount * eficiency;
+    public ResourceType GatheringResource { get => gatheringResource; }
+    public float GoldConvesionPercentage { get => goldConversionPercentage; }
+
+    public void UpdateGoldConversionPercentage(float newPercentage)
+    {
+        previousGoldConversionPercentage = goldConversionPercentage;
+        previousGatheringResource = gatheringResource;
+        previousGatheringResourceCount = gatheringResourceCount;
+        goldConversionPercentage = newPercentage;
+        UpdateResourceGeneration();
+    }
 
     public override void Adapt(GameTile tile)
     {
+        previousGatheringResource = gatheringResource;
+        previousGatheringResourceCount = gatheringResourceCount;
+
         int groundCount = 0, forestCount = 0, metalCount = 0, crystalCount = 0, waterCount = 0;
         List<GameTile> neighbours = new List<GameTile>();
         int lastAdded = AddNeighbours(neighbours, tile);
@@ -40,7 +57,7 @@ public class Destination : Buildable
             {
                 switch(((Resource)(neighbours[i].Content)).resourceType)
                 {
-                    case ResourceType.Forest:
+                    case ResourceType.Wood:
                         {
                             forestCount++;
                             break;
@@ -58,8 +75,7 @@ public class Destination : Buildable
                 }
             }
         }
-        int gatheringResourceCount;
-        ResourceType gatheringResource;
+
         if (destinationType == DestinationType.Farm)
         {
             gatheringResourceCount = groundCount;
@@ -72,7 +88,7 @@ public class Destination : Buildable
             if (forestCount > gatheringResourceCount)
             {
                 gatheringResourceCount = forestCount;
-                gatheringResource = ResourceType.Forest;
+                gatheringResource = ResourceType.Wood;
             }
             if (metalCount > gatheringResourceCount)
             {
@@ -86,10 +102,13 @@ public class Destination : Buildable
             }
         }
 
-        Game.instance.wallet.UpdateResourceGeneration(this.gatheringResource, gatheringResource, this.gatheringResourceCount*eficiency, gatheringResourceCount*eficiency);
+        UpdateResourceGeneration();
+    }
 
-        this.gatheringResourceCount = gatheringResourceCount;
-        this.gatheringResource = gatheringResource;
+    private void UpdateResourceGeneration()
+    {
+        Game.instance.wallet.UpdateResourceGeneration(previousGatheringResource, gatheringResource, previousGatheringResourceCount * eficiency * (1f - previousGoldConversionPercentage), gatheringResourceCount * eficiency * (1f - goldConversionPercentage));
+        Game.instance.wallet.UpdateResourceGeneration(ResourceType.Gold, ResourceType.Gold, previousGatheringResourceCount * eficiency * (previousGoldConversionPercentage)* previousGatheringResource.GoldValue(), gatheringResourceCount * eficiency * (goldConversionPercentage) * gatheringResource.GoldValue());
     }
 
     private int AddNeighbours(List<GameTile> neighbourList, GameTile tile)
@@ -140,6 +159,6 @@ public class Destination : Buildable
 
     public override void Clicked()
     {
-        Game.EnableTradeMenu(transform);
+        Game.ToggleTradeMenu(transform);
     }
 }

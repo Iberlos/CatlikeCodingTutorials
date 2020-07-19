@@ -69,7 +69,7 @@ public class ResourceWallet : GameBehavior
                     foodGeneratedPerSecond -= previousGeneration;
                     break;
                 }
-            case ResourceType.Forest:
+            case ResourceType.Wood:
                 {
                     woodGeneratedPerSecond -= previousGeneration;
                     break;
@@ -97,7 +97,7 @@ public class ResourceWallet : GameBehavior
                     foodGeneratedPerSecond += currentGeneration;
                     break;
                 }
-            case ResourceType.Forest:
+            case ResourceType.Wood:
                 {
                     woodGeneratedPerSecond += currentGeneration;
                     break;
@@ -177,7 +177,7 @@ public class ResourceWallet : GameBehavior
                         wood = metal = crystal = gold = 0;
                         break;
                     }
-                case ResourceType.Forest:
+                case ResourceType.Wood:
                     {
                         wood = amount;
                         food = metal = crystal = gold = 0;

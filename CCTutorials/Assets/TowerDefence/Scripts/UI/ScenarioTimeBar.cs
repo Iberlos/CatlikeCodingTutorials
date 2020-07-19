@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class ScenarioTimeBar : MonoBehaviour
 {
     [SerializeField]
-    private Image fill;
+    private Image fill = default;
     [SerializeField]
-    private Text counterText;
+    private Text counterText = default;
 
     public void UpdateTimeBar(float percentageTimeRemaining, string text)
     {

@@ -137,7 +137,6 @@ public class GameBoard : MonoBehaviour
             }
         }
         int destinationTile = tiles.Length / 2;
-        PlaceBuilding(tiles[destinationTile], GameTileContentType.Destination, 0);
         for (int i = 0; i < tiles.Length; i++)
         {
             int x = i % size.x;
@@ -145,6 +144,7 @@ public class GameBoard : MonoBehaviour
             if (x == 0 || x == size.x - 1 || y == 0 || y == size.y - 1)
                 PlaceBuilding(tiles[i], GameTileContentType.SpawnPoint, 0);
         }
+        PlaceBuilding(tiles[destinationTile], GameTileContentType.Destination, 0);
     }
 
     public void GameUpdate()
@@ -254,7 +254,7 @@ public class GameBoard : MonoBehaviour
 
     public bool Demolish(GameTile tile)
     {
-        if(tile.Content.Type != GameTileContentType.Destination)
+        if(tile.Content.Type == GameTileContentType.Destination)
         {
             Destination d = tile.Content as Destination;
             if (d != null && d.destinationType == DestinationType.Capital)

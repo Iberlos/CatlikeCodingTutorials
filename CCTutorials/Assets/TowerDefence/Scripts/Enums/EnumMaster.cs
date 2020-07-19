@@ -26,12 +26,42 @@ public enum GroundType
 
 public enum ResourceType
 {
-    Forest = 0,
+    Wood = 0,
     Metal,
     Crystal,
     Food,
     Gold,
     Last
+}
+
+public static class ResourceExtensions
+{
+    public static float GoldValue(this ResourceType type)
+    {
+        switch(type)
+        {
+            case ResourceType.Food:
+                {
+                    return 0.1f;
+                }
+            case ResourceType.Wood:
+                {
+                    return 0.3f;
+                }
+            case ResourceType.Metal:
+                {
+                    return 0.5f;
+                }
+            case ResourceType.Crystal:
+                {
+                    return 1f;
+                }
+            default:
+                {
+                    return 0f;
+                }
+        }
+    }
 }
 
 public enum DestinationType

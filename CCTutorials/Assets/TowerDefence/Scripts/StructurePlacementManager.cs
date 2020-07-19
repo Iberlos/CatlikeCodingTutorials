@@ -6,7 +6,7 @@ public class StructurePlacementManager : GameBehavior
 {
     private enum PlacementMode { Single = 0, Line, Square};
 
-    private GameTileContentType constructionType;
+    private GameTileContentType constructionType = GameTileContentType.Last;
     private int variationConstructionType;
     private GameTile lastTileConstructed;
 
@@ -18,6 +18,7 @@ public class StructurePlacementManager : GameBehavior
 
     public void InitiatePlacement(GameTile tile, GameBoard board)
     {
+        if (constructionType == GameTileContentType.Last) return;
         if (tile != null && tile != lastTileConstructed)
         {
             bool placedSomething = false;

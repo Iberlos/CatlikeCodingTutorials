@@ -12,9 +12,9 @@ public class GameScenario : ScriptableObject
     [SerializeField, TextArea]
     private string startText = default;
     [SerializeField]
-    public float initialDelay;
+    public float initialDelay = default;
     [SerializeField]
-    private float waveDelay;
+    private float waveDelay = default;
 
     public State Begin() => new State(this);
 

@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class Game : MonoBehaviour
 {
     [SerializeField]
-    private AudioClip ambientMusic;
+    private AudioClip ambientMusic = default;
     [SerializeField]
-    private AudioClip battleMusic;
+    private AudioClip battleMusic = default;
     [SerializeField]
-    private TradeMenuBehavior tradeMenu;
+    private TradeMenuBehavior tradeMenu = default;
     [SerializeField]
     private CameraBehavior gameCamera = default;
     [SerializeField]
@@ -24,18 +24,18 @@ public class Game : MonoBehaviour
     [SerializeField]
     private GameScenario[] scenarios = default;
     [SerializeField]
-    private Image scenarioTextWindow;
+    private Image scenarioTextWindow = default;
     [SerializeField]
-    private Text scenarioText;
+    private Text scenarioText = default;
     [SerializeField]
-    private ScenarioTimeBar scenarioTimeBar;
+    private ScenarioTimeBar scenarioTimeBar = default;
     [SerializeField, Range(0, 100)]
     private int startingPlayerHealth = 10;
     [SerializeField, Range(1f, 10f)]
     private float fastTimeScale = 1.5f;
     [Header("Map Generation")]
     [SerializeField]
-    private GeneratorParams generatorParameters;
+    private GeneratorParams generatorParameters = default;
 
     private Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -89,14 +89,18 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetMouseButtonDown(0))
+            HandleTouch();
         if (Input.GetMouseButton(0))
-        {
             HandleHold();
-        }
         if (Input.GetMouseButtonUp(0))
             HandleRelease();
+
         if (Input.GetMouseButtonDown(1))
             HandleAlternativeTouch();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            placementManager.CancelPlacement();
 
         if (Input.GetKeyDown(KeyCode.V))
         {
@@ -158,20 +162,31 @@ public class Game : MonoBehaviour
         gameCamera.SetPositionAndRotation(Vector3.zero);
     }
 
+    void HandleTouch()
+    {
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            GameTile tile = board.GetTile(TouchRay);
+            if (tile.Content.Type == GameTileContentType.Destination || tile.Content.Type == GameTileContentType.Wall || tile.Content.Type == GameTileContentType.Tower)
+            {
+                Buildable d = tile.Content as Buildable;
+                d.Clicked();
+                placementManager.CancelPlacement();
+                return;
+            }
+            else
+            {
+                ToggleTradeMenu(null, false);
+            }
+            placementManager.InitiatePlacement(tile, board);
+        }
+    }
+
     void HandleHold()
     {
         if(!EventSystem.current.IsPointerOverGameObject())
         {
             GameTile tile = board.GetTile(TouchRay);
-            if(tile.Content.Type == GameTileContentType.Destination)
-            {
-                Destination d = tile.Content as Destination;
-                if(d.destinationType == DestinationType.Capital)
-                {
-                    d.Clicked();
-                    return;
-                }
-            }
             placementManager.InitiatePlacement(tile, board);
         }
     }
@@ -308,8 +323,8 @@ public class Game : MonoBehaviour
         audioSource.Play();
     }
 
-    public static void EnableTradeMenu(Transform target)
+    public static void ToggleTradeMenu(Transform target = null, bool state = true)
     {
-        instance.tradeMenu.Activate(target);
+        instance.tradeMenu.Toggle(target, state);
     }
 }
