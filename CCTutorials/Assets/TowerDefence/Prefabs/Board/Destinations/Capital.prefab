@@ -58,6 +58,9 @@ MonoBehaviour:
     north_northEast_east_south_southWest_west_northWest: {fileID: 0}
     north_northEast_east_west: {fileID: 0}
     north_east_west_northWest: {fileID: 0}
+    north_east_southEast_south_west_northWest: {fileID: 0}
+    north_east_south_west_northWest: {fileID: 0}
+    north: {fileID: 0}
     defaultMesh: {fileID: 0}
   terrainMeshFilter: {fileID: 0}
   health: 10

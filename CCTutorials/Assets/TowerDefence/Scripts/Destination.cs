@@ -107,7 +107,9 @@ public class Destination : Buildable
 
     private void UpdateResourceGeneration()
     {
+        Debug.Log("Previous Resource: " + (previousGatheringResourceCount * eficiency * (1f - previousGoldConversionPercentage)).ToString() + "\nRequested Resource: " + (gatheringResourceCount * eficiency * (1f - goldConversionPercentage)).ToString());
         Game.instance.wallet.UpdateResourceGeneration(previousGatheringResource, gatheringResource, previousGatheringResourceCount * eficiency * (1f - previousGoldConversionPercentage), gatheringResourceCount * eficiency * (1f - goldConversionPercentage));
+        Debug.Log("Previous Gold: " + (previousGatheringResourceCount * eficiency * (previousGoldConversionPercentage) * previousGatheringResource.GoldValue()).ToString() + "\nRequested Gold: " + (gatheringResourceCount * eficiency * (goldConversionPercentage) * gatheringResource.GoldValue()).ToString());
         Game.instance.wallet.UpdateResourceGeneration(ResourceType.Gold, ResourceType.Gold, previousGatheringResourceCount * eficiency * (previousGoldConversionPercentage)* previousGatheringResource.GoldValue(), gatheringResourceCount * eficiency * (goldConversionPercentage) * gatheringResource.GoldValue());
     }
 

@@ -12,6 +12,8 @@ public class Game : MonoBehaviour
     [SerializeField]
     private TradeMenuBehavior tradeMenu = default;
     [SerializeField]
+    private CostAttachedWindowBehavior costAttachedWindow = default;
+    [SerializeField]
     private CameraBehavior gameCamera = default;
     [SerializeField]
     private Vector2Int boardSize = new Vector2Int(11, 11);
@@ -57,6 +59,8 @@ public class Game : MonoBehaviour
     private AudioSource audioSource;
 
     public bool WaveDefeated { get => enemies.IsEmpty; }
+
+    public CostAttachedWindowBehavior CostAttachedWindow { get => costAttachedWindow; }
 
     private void OnValidate()
     {
@@ -289,10 +293,11 @@ public class Game : MonoBehaviour
 
     public void ExitGame()
     {
-        if(Application.isEditor)
+        #if UNITY_EDITOR
             EditorApplication.ExecuteMenuItem("Edit/Play");
-        else
+        #else
             Application.Quit();
+        #endif
     }
 
     public void SetPlaySpeed(GameSpeedState state)

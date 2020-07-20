@@ -19,6 +19,8 @@ public class Buildable : Demolishable
 
     protected AudioSource audioSource;
 
+    public ResourceWallet.SpendingSum SpendingSum { get => spendingSum; }
+
     public override void Demolish()
     {
         Game.instance.wallet.SpendResources(spendingSum.RecycledByPercentage(recyclingPercentage/100f));
@@ -55,6 +57,9 @@ public class Buildable : Demolishable
         if(audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.maxDistance = 20;
+            audioSource.spatialBlend = 1f;
+            audioSource.rolloffMode = AudioRolloffMode.Linear;
         }
 
         audioSource.clip = clip;

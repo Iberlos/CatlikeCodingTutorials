@@ -57,6 +57,9 @@ public abstract class Tower : Buildable
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.maxDistance = 20;
+            audioSource.spatialBlend = 1f;
+            audioSource.rolloffMode = AudioRolloffMode.Linear;
         }
 
         audioSource.clip = clip;
