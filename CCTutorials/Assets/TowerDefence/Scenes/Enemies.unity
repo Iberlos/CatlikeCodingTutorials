@@ -4913,11 +4913,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78971904e7a68af4393710cfa73ca359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingFood: 1000
-  startingWood: 1000
-  startingMetal: 1000
-  startingCrystal: 1000
-  startingGold: 1000
+  startingFood: 50
+  startingWood: 50
+  startingMetal: 25
+  startingCrystal: 0
+  startingGold: 50
   foodCounter: {fileID: 1409822038}
   woodCounter: {fileID: 362655148}
   metalCounter: {fileID: 2108974298}
